@@ -1,0 +1,15 @@
+# /dev/sda2 FAT32 EFI Disk
+UUID=6A68-22F7 /boot vfat defaults,noatime,discard	0 0
+
+# /dev/sda7 EXT4 Linux Boot Disk
+UUID=ad0d8d8a-6b3a-4e23-8477-f8634d69e8de / ext4 defaults,noatime,discard 0 1
+
+# /dev/sda8 EXT4 Linux Home Disk
+UUID=bb0d3418-38ff-4516-a639-f88b2df871bf /home ext4 defaults,noatime,discard 0 2
+
+# /dev/sda9 EXT4 Linux Backup Disk
+UUID=5d156560-8865-4475-b0ea-7c99c84f93c1 /home/leesheen/MountPoints/Backup ext4 user,noauto,defaults,noatime,discard 0 0
+
+# /dev/sda6 NTFS Windows Data Disk
+UUID=56D002CBD002B0F3 /home/leesheen/MountPoints/Data ntfs-3g noauto,noatime,discard,uid=1000,gid=1000,dmask=022,fmask=133 0 0
+
