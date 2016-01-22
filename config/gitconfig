@@ -1,0 +1,11 @@
+[user]
+	name = Lee Sheen
+	email = leesheen@outlook.com
+
+[core]
+	compression = -1
+
+[github]
+	user = leesheen
+	token = 99819dd3bea11010c8225a982be4e469271728b8
+
