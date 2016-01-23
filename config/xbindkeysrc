@@ -50,27 +50,71 @@
 "xterm"
   control + b:2
 
-# volume set 
+# Add by leesheen for ThinkPad X240 
+## Laptop Functions
+### Volume Set 
+#### F1 Mute & Unmute
+"amixer sset Master unmute"
+XF86AudioMute
+"amixer sset Master mute"
+XF86AudioMute
+
+#### F2 Volume -
 "amixer sset Master 500-"
 XF86AudioLowerVolume
   
+#### F3 Volume +
 "amixer sset Master 500+"
 XF86AudioRaiseVolume
 
-"amixer sset Master unmute"
-XF86AudioMute
+#### F4 Mixer Setting instead Mic Setting 
+"xfce4-mixer"
+XF86AudioMicMute
 
-"amixer sset Master mute"
-XF86AudioMute
-# volume set end
+### Volume Set End
 
-# brightness +/-
-"light -U 5"
+### Brightness Set
+#### F5 Brightness -
+"light -U 1"
 XF86MonBrightnessDown
 
-"light -A 5"
+#### F6 Brightness +
+"light -A 1"
 XF86MonBrightnessUp
-# brightness +/- end
+### Brightness Set End
+
+### Other Function
+#### F7 Display
+"xfce4-display-settings"
+XF86Display
+
+#### F8 WLAN 
+#WLAN function OK
+#XF86WLAN
+
+#### F9 Tools
+#XF86Tools
+
+#### F10 Search
+"simplesearch"
+XF86Search
+
+#### F11 Launch
+"xfce4-appfinder"
+XF86LaunchA
+
+#### F12 Explorer
+"nautilus"
+XF86Explorer
+
+### Other Functions End
+## Laptop Funtions End
+
+## Keyboard Functions
+
+"xfce4-screenshooter"
+Print
+
 
 #"xterm -geom 50x20+20+20"
 #   Shift+Mod2+alt + s
