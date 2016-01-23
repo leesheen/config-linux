@@ -12,4 +12,3 @@ UUID=5d156560-8865-4475-b0ea-7c99c84f93c1 /home/leesheen/MountPoints/Backup ext4
 
 # /dev/sda6 NTFS Windows Data Disk
 UUID=56D002CBD002B0F3 /home/leesheen/MountPoints/Data ntfs-3g noauto,noatime,discard,uid=1000,gid=1000,dmask=022,fmask=133 0 0
-
