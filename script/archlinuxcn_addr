@@ -1,9 +1,0 @@
-#Server = http://repo.archlinuxcn.org/$arch
-Server = http://mirrors.ustc.edu.cn/archlinuxcn/$arch
-Server = https://mirrors.ustc.edu.cn/archlinuxcn/$arch
-Server = http://mirrors.tuna.tsinghua.edu.cn/archlinuxcn/$arch # both IPv4 & IPv6
-# Server = http://mirrors.6.tuna.tsinghua.edu.cn/archlinuxcn/$arch # only IPv6
-Server = http://mirrors.4.tuna.tsinghua.edu.cn/archlinuxcn/$arch # only IPv4
-Server = http://mirrors.cqu.edu.cn/archlinux-cn/$arch
-Server = http://mirrors.163.com/archlinux-cn/$arch
-Server = http://mirrors.hustunique.com/archlinuxcn/$arch
