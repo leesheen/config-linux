@@ -112,9 +112,20 @@ XF86Explorer
 
 ## Keyboard Functions
 
+#### F10 Search
+"simplesearch"
+Mod4 + F10
+
+#### F11 Launch
+"xfce4-appfinder"
+Mod4 + F11
+
+#### F12 Explorer
+"nautilus"
+Mod4 + F12
+
 "xfce4-screenshooter"
 Print
-
 
 #"xterm -geom 50x20+20+20"
 #   Shift+Mod2+alt + s
