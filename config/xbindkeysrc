@@ -85,7 +85,7 @@ XF86MonBrightnessUp
 
 ### Other Function
 #### F7 Display
-"xfce4-display-settings"
+"lxrandr"
 XF86Display
 
 #### F8 WLAN 
