@@ -1,16 +1,25 @@
 # Arch Linux 安装小记
+----------------------
+
+这是一篇随笔，用来记录从全新安装 Arch Linux 开始，到在使用过程中各种软件配置的过程。
+
+其实对于 Arch Linux 这样滚动更新的 Linux，很少需要重新安装系统。只不过在开始使用 Arch Linux 时遇到的一些问题，有时并没有真正了解其中的原因或者问题被掩盖了，所以通过写一些记录文档，并且把一些花时间配置的文件备份下来，无论以后再次使用还是整理思路都是好的。
+
+**注意:** 这**不是**一个安装 Arch Linux 的完整过程，[ArchWiki] [1] 才是。但对于一些用户可以作为参考。
+
+  [1]: https://wiki.archlinux.org
 
 ## 1. 系统安装
 
 ### 启动模式
 
-检查启动模式是否支持UEFI，这将决定在安装Bootloader阶段的步骤:
+检查启动模式是否支持UEFI，这将决定在安装 Bootloader 阶段的步骤:
 
     ls /sys/firmware/efi/efivars
 
 ### 网络连接
 
-有线用户在DHCP可以获取IP的情况下，一般可以连接网络，无线用户可以使用下面命令选择网络连接:
+有线用户在 DHCP 可以获取 IP 的情况下，一般可以连接网络，无线用户可以使用下面命令选择网络连接:
 
     wifi-menu -o wlp3s0 # 使用WiFi
 
@@ -20,7 +29,7 @@
 
 ### 时间
 
-使能NTP服务，更新系统时间，确保时间的准确性:
+使能 NTP 服务，更新系统时间，确保时间的准确性:
 
     timedatectl set-ntp true
     timedatectl status
@@ -31,7 +40,7 @@
 
     lsblk
 
-创建/更改磁盘信息，这里对磁盘sdb重新分区，使用gpt格式:
+创建/更改磁盘信息，这里对磁盘 /dev/sdb 重新分区，使用 gpt 格式:
 
     parted /dev/sdb
 
@@ -53,13 +62,14 @@
 
 ### 镜像
 
-选择安装使用的镜像服务器，一般使用China几个，解注释/移动到文件首:
+选择安装使用的镜像服务器，一般使用 China 几个，解注释/移动到文件首:
 
     vim /etc/pacman.d/mirrorlist
 
 同步镜像服务器并安装:
 
     pacman -Syy #一般不需要，但可以测试选择镜像服务器速度用
+
     pacstrap -i /mnt base base-devel
 
 ### fstab
@@ -87,7 +97,7 @@ chroot系统，以完成安装的最后工作:
 
 这里预先安装一些常用的工具，更多工具可以等到系统安装完毕再安装:
 
-    pacman -S vim intel-ucode iw wpa_supplicant dialog zsh openssh 
+    pacman -S vim intel-ucode iw wpa_supplicant dialog zsh 
     # intel-ucode是intel的微码工具
 
 ### 本地化
@@ -120,7 +130,7 @@ chroot系统，以完成安装的最后工作:
 
 ### Bootloader
 
-因为使用UEFI + GPT，直接使用systemd工具生成启动信息:
+因为使用 UEFI + GPT，直接使用 systemd 工具生成启动信息:
 
     bootctl install
 
@@ -132,7 +142,7 @@ chroot系统，以完成安装的最后工作:
 
     title		Arch Linux
     linux		/vmlinuz-linux
-    initrd		/intel-ucode.img #是否安装intel-ucode
+    initrd		/intel-ucode.img #安装intel-ucode后添加
     initrd		/initramfs-linux.img
     options		root=/dev/sdb2 rw #/文件系统的分区
     
@@ -146,6 +156,11 @@ chroot系统，以完成安装的最后工作:
 设置此系统的名称:
 
     echo leesheen-X240 > /etc/hostname
+
+并在 /etc/hosts 添加同样的主机名:
+
+    vim /etc/hosts
+    # 添加 leesheen-X240 到文件中两行内容的末尾
 
 ### root密码
 
@@ -229,7 +244,7 @@ Arch Wiki上提供的源有点慢，这里有国内的源的地址，可以测�
 
 ### 切换用户
 
-以上操作基本上完成了Arch Linux核心部分的安装，下面针对不同的用户和不同的需要进行操作，也会以普通用户身份登录了。
+以上操作基本上完成了 Arch Linux 核心部分的安装，下面针对不同的用户和不同的需要进行操作，也会以普通用户身份登录了。
 
 重启以普通用户身份登录
 
@@ -298,7 +313,57 @@ git不仅仅是一个版本管理工具，很多时候也是我们获取内容�
     git clone https://www.github.com/leesheen/config-linux.git
 
 在~/Tools/config-linux/下就是后面需要的配置文件了。
-    
+
+### Zsh
+
+Zsh是一个功能强大的Shell，我们用其代替系统默认的bash。在前我们已经安装:
+
+    # pacman -S zsh
+
+Zsh的高可定制性使我们获得一个优秀配置变得比较复杂，还好有个开源项目叫Oh-my-zsh，使用官网的脚本直接配置安装:
+
+    sh -c "$(curl -fsSL https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
+
+    # 或者使用wget
+
+    sh -c "$(wget https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh -O -)"
+
+    # 没有速度可配合Proxychains使用
+
+### Vim
+
+Vim是一个强大的编辑器，对我来说最强大之处在于它的速度，任何大小的文件处理起来没有卡顿。无论是码代码还是Markdown，它的顺滑让我的工作更加专注，此前在安装初期我们已经安装:
+
+    # pacman -S vim
+
+- Vundle
+
+它的强大之处也在于它的高可定制行，丰富的插件让我们的工作更加简单，但和其他插件丰富的工具（Chrome/Atom）不同的是，它没有一个官方的渠道管理这些插件，所以使用一个插件来管理这些插件，它叫Vundle，使用git安装:
+
+    git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
+
+把配置好的vimrc链接到家目录的vimrc:
+
+    ln ~/Tools/config-linux/config/vimrc ~/.vimrc
+
+键入命令安装插件:
+
+    vim +PluginInstall +qall 
+
+- YCM
+
+所有插件安装完成，其中YouCompleteMe需要编译才能使用:
+
+    cd ~/.vim/bundle/YouCompleteMe
+    ./install.py --all
+    # 需要python2和cmake如没有会提示，安装即可:
+    # pacman -S python2 cmake
+
+    # pacman -S go npm nodejs
+
+- Ctags
+pacman -S ctags
+
 ### X/桌面环境/窗口管理器
 
 #### Xorg:
@@ -360,6 +425,8 @@ xfce4是一个轻量级模块化的桌面环境。一般在需要桌面环境的
               adobe-source-serif-pro-fonts \
               adobe-source-han-sans-cn-fonts
 
+	yaourt ttf-cosolas-powerline
+
 //TODO 配置Terminal默认中文字体
 
 ### 输入法
@@ -382,23 +449,19 @@ xfce4是一个轻量级模块化的桌面环境。一般在需要桌面环境的
 
 ### Terminal
 
-以为之前使用KDE Plasma，很喜欢Konsole，但其实xfce-terminal一样能完成Konsole的工作，而且更轻量。
+以为之前使用KDE Plasma，很喜欢Konsole，但其实xfce4-terminal一样能完成Konsole的工作，而且更轻量。
 
 #### xfce4-terminal
 
 在xfce安装过程中已经安装过xfce4-terminal。
 
-#### Konsole
-
-安装Konsole，选择VLC为后端:
-
-    sudo pacman -S konsole
-
-添加配置文件
-
 //TODO
 
-    # git ~/.config/konsolerc ~/.local/share/konsole
+#### ~~Konsole~~
+
+~~安装Konsole，选择VLC为后端:~~
+
+    # sudo pacman -S konsole
 
 ### 文件管理器
 
@@ -415,7 +478,6 @@ xfce4是一个轻量级模块化的桌面环境。一般在需要桌面环境的
 之前使用Windows，所以硬盘中包含NTFS分区和额外的ext4分区，首先安装必要的磁盘工具支持fat/ntfs/exfat/hfs等分区格式:
 
     sudo pacman -S  parted exfat-utils ntfs-3g dosfstools hfsprogs 
-git fstab
 
 上述的配置文件里面有默认的fstab，把硬盘1中Windows使用的NTFS分区（Data）和Linux EXT4（Data）挂载到/mnt下相应设备名称的目录下:
 
@@ -428,6 +490,19 @@ git fstab
 ### Markdown
 
 有很多比较好的MD工具，像Atom、Remarkable等，但Remarkable预览总有问题，Atom用起来有略微卡顿，所以还是使用vim编辑，Chrome插件实时预览的方式。
+
+#### Atom
+
+Atom是Github官方的编辑器，原生支持Markdown，安装Atom:
+
+    yaourt atom-editor
+
+Atom和其他出色的编辑工具一样，拥有众多插件，这里安装Markdown相关的MD转PDF和vim模式的插件:
+
+    apm vim-mode ex-mode markdown-pdf
+    # Atom的插件在Github上，可以使用proxychains协助安装
+
+#### Vim + Chrome插件
 
 - 在Chrome的WebStore中搜索Markdown Preview Plus并安装
 
@@ -448,3 +523,9 @@ git fstab
 ### Image
 
 imagemagick
+
+### 下载
+
+wget
+
+### SSH
