@@ -1,0 +1,225 @@
+
+set nocompatible              " 去除VI一致性,必须
+filetype off                  " 必须
+
+" 设置包括vundle和初始化相关的runtime path
+set rtp+=~/.vim/bundle/Vundle.vim
+call vundle#begin()
+" 另一种选择, 指定一个vundle安装插件的路径
+"call vundle#begin('~/some/path/here')
+
+" 让vundle管理插件版本,必须
+Plugin 'VundleVim/Vundle.vim'
+
+" 以下范例用来支持不同格式的插件安装.
+" 请将安装插的命令放在vundle#begin和vundle#end之间.
+
+" Github上的插件
+" 格式为 Plugin '用户名/插件仓库名'
+" Plugin 'tpope/vim-fugitive'
+
+" 来自 http://vim-scripts.org/vim/scripts.html 的插件
+" Plugin '插件名称' 实际上是 Plugin 'vim-scripts/插件仓库名' 只是此处的用户名可以省略
+" Plugin 'L9'
+
+" 由Git支持但不再github上的插件仓库 Plugin 'git clone 后面的地址'
+" Plugin 'git://git.wincent.com/command-t.git'
+
+" 本地的Git仓库(例如自己的插件) Plugin 'file:///+本地插件仓库绝对路径'
+" Plugin 'file:///home/gmarik/path/to/plugin'
+
+" 插件在仓库的子目录中.
+" 正确指定路径用以设置runtimepath. 以下范例插件在sparkup/vim目录下
+" Plugin 'rstacruz/sparkup', {'rtp': 'vim/'}
+
+" 安装L9，如果已经安装过这个插件，可利用以下格式避免命名冲突
+" Plugin 'ascenator/L9', {'name': 'newL9'}
+
+" solarized 配色
+Plugin 'altercation/vim-colors-solarized'
+
+" C 重复工作简化
+Plugin 'c.vim'
+
+" Powerline
+Plugin 'Lokaltog/vim-powerline'
+
+" TagList
+Plugin 'taglist.vim'
+
+" a.vim 切换当前头文件
+Plugin 'a.vim'
+
+" Ctrl+p搜索文件
+Plugin 'kien/ctrlp.vim'
+
+" Plugin 'Valloric/ListToggle'
+" Plugin 'sukima/xmledit'
+" Plugin 'scrooloose/syntastic'
+" Plugin 't9md/vim-quickhl'
+" Plugin 'scrooloose/nerdcommenter' "注释工具
+" Plugin 'SirVer/ultisnips' "快速插入注释
+" Plugin 'sjl/gundo.vim' " 撤销树
+" Plugin 'klen/python-mode'
+" Plugin 'elzr/vim-json'
+
+" 你的所有插件需要在下面这行之前
+call vundle#end()            " 必须
+filetype plugin indent on    " 必须 加载vim自带和插件相应的语法和文件类型相关脚本
+" 忽视插件改变缩进,可以使用以下替代:
+"filetype plugin on
+"
+" 简要帮助文档
+" :PluginList       - 列出所有已配置的插件
+" :PluginInstall    - 安装插件,追加 `!` 用以更新或使用 :PluginUpdate
+" :PluginSearch foo - 搜索 foo ; 追加 `!` 清除本地缓存
+" :PluginClean      - 清除未使用插件,需要确认; 追加 `!` 自动批准移除未使用插件
+"
+" 查阅 :h vundle 获取更多细节和wiki以及FAQ
+" 将你自己对非插件片段放在这行之后
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" 配置
+
+" 非insert mode 下键入空格启动 command mode.
+nnoremap <space> :
+vnoremap <space> :
+
+" insert mode 下使用Ctrl+hjkl移动光标
+inoremap <C-h> <Left>
+inoremap <C-j> <Down>
+inoremap <C-k> <Up>
+inoremap <C-l> <Right>
+
+" 缩进设置
+"----------------------------------------------
+set shiftwidth=4 	" 缩进空格数
+set tabstop=4 		" TAB占空格数
+filetype indent on 	" 自动缩进检测 
+set autoindent   	" 设置自动对齐(缩进)：即每行的缩进值与上一行相等
+set smartindent 	" 智能对齐方式
+set cindent 		" 使用 C/C++ 语言的自动缩进方式
+set noexpandtab		" tab不展开空格
+autocmd FileType python setlocal et sta sw=4 sts=4	" Python 缩进4个空格
+"----------------------------------------------
+
+set autoread			" 自动载入
+set autowrite 			" 自动把内容写回文件
+
+set nobackup			" 不产生~备份文件
+set number 				" 显示行号
+set ruler				" 最后一行显示标尺
+set showcmd 			" 右下角显示命令模式的命令
+set hidden 				" 隐藏缓冲区
+set textwidth=80		" 文本行宽
+set nowrap				" 代码超过一行是不折叠显示
+set whichwrap=h,l,b,s,<,>,[,] " 处理移动到行首位是否继续
+set scrolloff=3			" 光标移动到顶部或底部保持行数
+set history=100 		" 记录历史命令
+" set cursorline			" 高亮光标所在行
+"set cursorcolumn		: 高亮光标所在列
+"set helplang=cn 		" 帮助文档
+"set helpheight=10
+"set   guioptions-=T
+"set   guioptions-=m
+"set   guioptions-=r
+"set   guioptions-=l
+
+set formatoptions+=mM	" 处理自动格式化
+
+set mouse=v				" 鼠标选择区域
+
+set completeopt=longest,menu
+" set   pumheight=10
+" 在下拉菜单中显示匹配项目，并且会自动插入所有匹配项目的相同文本
+
+" TODO
+set wildmenu
+set wildignore=*.bak,*.o,*.e,*~
+set wildmode=list:longest,full
+
+set backspace=indent,eol,start " 在使用退格键处理一些问题
+
+
+" 搜索
+"----------------------------------------------
+set hlsearch            " 高亮度反白
+set incsearch			" 表示在你输入同时开始查找
+set ignorecase 			" 搜索模式里忽略大小写
+set smartcase 			" 如果搜索模式包含大写字符，不使用 'ignorecase'
+"----------------------------------------------
+
+" 代码折叠
+"----------------------------------------------
+set foldenable
+set foldmethod=syntax       " 设置语法折叠
+set foldcolumn=0            " 设置折叠区域的宽度
+setlocal foldlevel=1        " 设置折叠层数为
+set foldlevelstart=99       " 打开文件是默认不折叠代码
+"----------------------------------------------
+
+
+" " 编码
+"----------------------------------------------
+set encoding=utf8			" 内部编码
+set termencoding=utf-8		" 告诉Term编码格式
+
+set fileencoding=utf-8		" 新建文件编码；下面预测编码
+set fileencodings=utf-8,gb2312,gbk,gb18030
+
+set fileformat=unix 		" 新建文件格式；预测格式
+set fileformats=unix,dos
+"----------------------------------------------
+
+" solarized 配色
+"----------------------------------------------
+syntax on 					" Syntax highlighting.
+let g:solarized_termcolors=256
+set t_Co=256 
+set background=dark
+" set background=light
+colorscheme solarized
+"----------------------------------------------
+
+
+" YCM 配置
+"----------------------------------------------
+" 全局配置文件
+let g:ycm_global_ycm_extra_conf = '~/.vim/bundle/ycm_extra_conf.py'
+"----------------------------------------------
+
+
+" PowerLine 配置
+"----------------------------------------------
+let g:Powerline_symbols = 'fancy'
+set laststatus=2
+set noshowmode
+"----------------------------------------------
+
+
+" Taglist 配置
+"----------------------------------------------
+map <F2> : Tlist<CR> 		 		" F2呼出Tlist
+"let Tlist_Auto_Open = 1 	 		" 在启动VIM后，自动打开taglist窗口  
+let Tlist_Use_Right_Window=0 		" 1为让窗口显示在右边，0为显示在左边  
+"let Tlist_Show_One_File=0			" 让taglist可以同时展示多个文件的函数列表，设置为1时不
+let Tlist_File_Fold_Auto_Close=1 	" 同时显示多个文件中的tag时，taglist只显示当前
+let Tlist_Exit_OnlyWindow=1 		"当taglist是最后一个分割窗口时，自动退出vim  
+"let Tlist_Process_File_Always=0  "是否一直处理tags.1:处理;0:不处理  
+"----------------------------------------------
+
+
+"CtrlP 配置
+"----------------------------------------------
+let g:ctrlp_map='<c-p>'
+let g:ctrlp_cmd='CtrlP'
+let g:ctrlp_working_path_mode=0
+
+set wildignore+=*/tmp/*,*.so,*.swp,*.zip     " MacOSX/Linux
+
+let g:ctrlp_custom_ignore = {
+    \ 'dir':  '\v[\/]\.(git|hg|svn|rvm)$',
+    \ 'file': '\v\.(exe|so|dll|zip|tar|tar.gz|pyc)$',
+    \ }
+"----------------------------------------------
+
