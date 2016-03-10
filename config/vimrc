@@ -127,7 +127,7 @@ set history=100 		" 记录历史命令
 
 set formatoptions+=mM	" 处理自动格式化
 
-set mouse=v				" 鼠标选择区域
+set mouse=a				" 鼠标选择区域
 
 set completeopt=longest,menu
 " set   pumheight=10
