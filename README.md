@@ -91,7 +91,7 @@
 
 chroot系统，以完成安装的最后工作:
 
-    arch-chroot /mnt /bin/base
+    arch-chroot /mnt /bin/bash
 
 ### 安装一些工具
 
@@ -241,6 +241,26 @@ Arch Wiki上提供的源有点慢，这里有国内的源的地址，可以测�
 安装显示驱动:
 
     pacman -S mesa-libgl xf86-video-intel libva-intel-driver libvdpau-va-gl
+	mesa-demos
+
+### 声音
+
+内核已经集成ALSA驱动，这里安装工具:
+
+	pacman -S alsa-utils
+
+ThinkPad X240默认识别两个声卡，把HDMI通道的声卡设置成为默认，这里如果想使用笔记
+本上的声卡，把PCH设置成默认，添加启动加载文件:
+
+	sudo vim /etc/modprobe.d/alsa-base.conf
+
+添加如下代码设置:
+
+	# Set pcm is default sound card
+	options snd_pcm index=0
+	options snd_hda_intel index=1
+
+重新启动，PCH声卡就变成默认声卡了。
 
 ### 切换用户
 
@@ -328,13 +348,29 @@ Zsh的高可定制性使我们获得一个优秀配置变得比较复杂，还�
 
     sh -c "$(wget https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh -O -)"
 
-    # 没有速度可配合Proxychains使用
+    # 没有速度可配合Proxychains使用，或者执行备份脚本的内容:
+
+	./Tools/config-linux/script/ohmyzsh_install.sh
+
+**注意：**如果想在root用户下也使用zsh的此配置，在root用户下执行上面的命令
 
 ### Vim
 
 Vim是一个强大的编辑器，对我来说最强大之处在于它的速度，任何大小的文件处理起来没有卡顿。无论是码代码还是Markdown，它的顺滑让我的工作更加专注，此前在安装初期我们已经安装:
 
     # pacman -S vim
+
+- YCM
+
+YouCompleteMe拥有强大的补全和语义检查功能，安装:
+
+	yaourt vim-youcompleteme-git
+
+- Ctags
+
+Ctags是Linux下的跟踪文件的利器，安装:
+
+	pacman -S ctags
 
 - Vundle
 
@@ -350,25 +386,44 @@ Vim是一个强大的编辑器，对我来说最强大之处在于它的速度�
 
     vim +PluginInstall +qall 
 
-- YCM
+**注意：**如果使root用户或者sudo下使用vim也插件化，上述步骤在root用户下也操作一遍其中PowerLine插件需要额外的字体，安装:
 
-所有插件安装完成，其中YouCompleteMe需要编译才能使用:
+	yaourt ttf-cosolas-powerline
 
-    cd ~/.vim/bundle/YouCompleteMe
-    ./install.py --all
-    # 需要python2和cmake如没有会提示，安装即可:
-    # pacman -S python2 cmake
+### Keyboard
 
-    # pacman -S go npm nodejs
+Xbindkeys是一个可以允许用户自定义键值的程序，我们可以利用它来自定义一些按键，比
+如静音和增减音量的快捷键不能使用等，安装:
 
-- Ctags
-pacman -S ctags
+	sudo pacman -S xbindkeys
+
+这里使用配置文件中的配置:
+
+	ln ~/Tools/config-linux/config/xbindkeysrc ~/.xbindkeysrc
+
+这个文件使用了以下工具
+
+- Sound: **alsa-utils** 上述已经安装；
+- BackLight: **xinit-backlight** 上述已经安装；
+- MultiScreen: **lxrandr** 需要安装；
+- Wi-Fi: 默认按键可以使用up/down Wi-Fi；
+- Setting: TODO
+- Search: TODO
+- Finder: **xfce4-appfinder** 下述xfce4安装；
+- FileManager: **nautilus** 下述xfce4安装；
+
+安装上述需要安装的工具:
+
+	sudo pacman -S lxrandr
+
+~~添加xbindkeys启动到xinitrc~~，下面配置文件中已经包含。
 
 ### X/桌面环境/窗口管理器
 
 #### Xorg:
 
-Xorg 是 X11 窗口系统的一个开源实现，当使用桌面环境或者窗口管理器时需要X配合，安装Xorg和其工具包:
+Xorg 是 X11 窗口系统的一个开源实现，当使用桌面环境或者窗口管理器时需要X配合，
+安装Xorg和其工具包:
 
     sudo pacman -S xorg-server xorg-server-utils xorg-apps xorg-xinit
 
@@ -425,7 +480,6 @@ xfce4是一个轻量级模块化的桌面环境。一般在需要桌面环境的
               adobe-source-serif-pro-fonts \
               adobe-source-han-sans-cn-fonts
 
-	yaourt ttf-cosolas-powerline
 
 //TODO 配置Terminal默认中文字体
 
@@ -463,9 +517,26 @@ xfce4是一个轻量级模块化的桌面环境。一般在需要桌面环境的
 
     # sudo pacman -S konsole
 
+### Media
+
+#### MPlayer
+
+MPlayer是一个开源的播放器，快速好用，安装:
+	
+	sudo pacman -S mplayer
+	# 自带解码包依赖
+
+TODO: 配置文件
+
+#### 
+
 ### 文件管理器
 
 通常使用xfce4下的thunar，一般情况下也很少用到，安装xfce4已经包含thunar。
+
+- Dropbox
+	yaourt thunar-dropbox
+	yaourt dropbox-experimental
 
 ### 压缩
 
@@ -529,3 +600,14 @@ imagemagick
 wget
 
 ### SSH
+
+	yaourt openssh-hpn-git
+
+### WPS
+
+	yaourt wps-office ttf-wps-fonts
+
+
+### 索引
+	pacman -S mlocate
+	updatedb

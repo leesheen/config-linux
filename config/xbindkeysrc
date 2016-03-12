@@ -37,56 +37,52 @@
 #keystate_capslock = enable
 #keystate_scrolllock= enable
 
-# Examples of commands:
-
-"xbindkeys_show" 
-  control+shift + q
-
-# set directly keycode (here control + f with my keyboard)
-"xterm"
-  c:41 + m:0x4
-
-# specify a mouse button
-"xterm"
-  control + b:2
-
 # Add by leesheen for ThinkPad X240 
+
 ## Laptop Functions
+
 ### Volume Set 
 #### F1 Mute & Unmute
 "amixer sset Master unmute"
-XF86AudioMute
+	XF86AudioMute
+
 "amixer sset Master mute"
-XF86AudioMute
+	XF86AudioMute
 
 #### F2 Volume -
-"amixer sset Master 500-"
-XF86AudioLowerVolume
+"amixer sset Master 10-"
+	Mod4 + F2
+	XF86AudioLowerVolume
   
 #### F3 Volume +
-"amixer sset Master 500+"
-XF86AudioRaiseVolume
+"amixer sset Master 10+"
+	Mod4 + F3
+	XF86AudioRaiseVolume
 
 #### F4 Mixer Setting instead Mic Setting 
 "xfce4-mixer"
-XF86AudioMicMute
-
+	Mod4 + F4
+	XF86AudioMicMute
 ### Volume Set End
 
 ### Brightness Set
 #### F5 Brightness -
-"light -U 1"
-XF86MonBrightnessDown
+"xbacklight -dec 5"
+	Mod4 + F5
+	XF86MonBrightnessDown
 
 #### F6 Brightness +
-"light -A 1"
-XF86MonBrightnessUp
+"xbacklight -inc 5"
+	Mod4 + F6
+	XF86MonBrightnessUp
 ### Brightness Set End
 
 ### Other Function
+
 #### F7 Display
 "lxrandr"
-XF86Display
+	Mod4 + F7
+	XF86Display
 
 #### F8 WLAN 
 #WLAN function OK
@@ -97,50 +93,26 @@ XF86Display
 
 #### F10 Search
 "simplesearch"
-XF86Search
+	Mod4 + F10
+	XF86Search
 
 #### F11 Launch
 "xfce4-appfinder"
-XF86LaunchA
+	Mod4 + F11
+	XF86LaunchA
 
 #### F12 Explorer
 "nautilus"
-XF86Explorer
+	Mod4 + F12
+	XF86Explorer
 
 ### Other Functions End
-## Laptop Funtions End
-
-## Keyboard Functions
-
-#### F10 Search
-"simplesearch"
-Mod4 + F10
-
-#### F11 Launch
-"xfce4-appfinder"
-Mod4 + F11
-
-#### F12 Explorer
-"nautilus"
-Mod4 + F12
 
 "xfce4-screenshooter"
-Print
+	Print
 
-#"xterm -geom 50x20+20+20"
-#   Shift+Mod2+alt + s
-#
-## set directly keycode (here control+alt+mod2 + f with my keyboard)
-#"xterm"
-#  alt + c:0x29 + m:4 + mod2
-#
-## Control+Shift+a  release event starts rxvt
-#"rxvt"
-#  release+control+shift + a
-#
-## Control + mouse button 2 release event starts rxvt
-#"rxvt"
-#  Control + b:2 + Release
+## Laptop Funtions End
+
 
 ##################################
 # End of xbindkeys configuration #

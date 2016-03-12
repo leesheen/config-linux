@@ -59,6 +59,8 @@ export GTK_IM_MODULE=fcitx
 export QT_IM_MODULE=fcitx
 export XMODIFIERS=@im=fcitx
 #export TERM=xterm-256color
+xbindkeys 
 fcitx &
 
 exec  i3 
+#exec startxfce4
