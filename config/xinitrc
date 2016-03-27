@@ -59,8 +59,37 @@ export GTK_IM_MODULE=fcitx
 export QT_IM_MODULE=fcitx
 export XMODIFIERS=@im=fcitx
 #export TERM=xterm-256color
-xbindkeys 
+#xbindkeys 
 fcitx &
-
-exec  i3 
 #exec startxfce4
+feh --bg-scale /home/leesheen/Documents/thinkpad-dark.jpg
+exec i3
+
+# Here Xfce is kept as default
+#session=${1:-xfce}
+#
+#case $session in
+#    xfce|xfce4        ) exec startxfce4;;
+#    i3|i3wm           ) exec i3;;
+#    awesome           ) exec awesome;;
+#    bspwm             ) exec bspwm;;
+#    catwm             ) exec catwm;;
+#    cinnamon          ) exec cinnamon-session;;
+#    dwm               ) exec dwm;;
+#    enlightenment     ) exec enlightenment_start;;
+#    ede               ) exec startede;;
+#    fluxbox           ) exec startfluxbox;;
+#    gnome             ) exec gnome-session;;
+#    gnome-classic     ) exec gnome-session --session=gnome-classic;;
+#    icewm             ) exec icewm-session;;
+#    jwm               ) exec jwm;;
+#    kde               ) exec startkde;;
+#    mate              ) exec mate-session;;
+#    monster|monsterwm ) exec monsterwm;;
+#    notion            ) exec notion;;
+#    openbox           ) exec openbox-session;;
+#    unity             ) exec unity;;
+#    xmonad            ) exec xmonad;;
+    # No known session, try to run it as command
+#    *) exec $1;;
+#esac

@@ -1,15 +1,15 @@
-fra-de-ping.vultr.com
-ams-nl-ping.vultr.com
-par-fr-ping.vultr.com
-lon-gb-ping.vultr.com	
-hnd-jp-ping.vultr.com
-nj-us-ping.vultr.com
-il-us-ping.vultr.com
-ga-us-ping.vultr.com
-wa-us-ping.vultr.com
-fl-us-ping.vultr.com
-tx-us-ping.vultr.com
-sjo-ca-us-ping.vultr.com
-lax-ca-us-ping.vultr.com
-syd-au-ping.vultr.com
+ping -c 3 fra-de-ping.vultr.com
+ping -c 3 ams-nl-ping.vultr.com
+ping -c 3 par-fr-ping.vultr.com
+ping -c 3 lon-gb-ping.vultr.com	
+ping -c 3 hnd-jp-ping.vultr.com
+ping -c 3 nj-us-ping.vultr.com
+ping -c 3 il-us-ping.vultr.com
+ping -c 3 ga-us-ping.vultr.com
+ping -c 3 wa-us-ping.vultr.com
+ping -c 3 fl-us-ping.vultr.com
+ping -c 3 tx-us-ping.vultr.com
+ping -c 3 sjo-ca-us-ping.vultr.com
+ping -c 3 lax-ca-us-ping.vultr.com
+ping -c 3 syd-au-ping.vultr.com
 
