@@ -25,7 +25,7 @@
 
 测试网络是否连通:
 
-    ping -c 3 www.archlinux.org
+e   ping -c 3 www.archlinux.org
 
 ### 时间
 
@@ -45,9 +45,9 @@
     parted /dev/sdb
 
     (parted) mklable gpt
-    (parted) mkpart ESP fat32 1MiB 512MiB
+    (parted) mkpart ESP fat32 1MiB 513MiB
     (parted) set 1 boot on
-    (parted) mkpart primary ext4 512MiB 100%
+    (parted) mkpart primary ext4 513MiB 100%
 
 格式化分区:
 
@@ -186,6 +186,14 @@ chroot系统，以完成安装的最后工作:
 
 系统重启后以root用户登录系统。
 
+### Set Network
+
+//TODO
+
+LAN
+
+WLAN
+
 ### 用户
 
 通常我们应该使用普通（非root）用户使用Linux系统，需要root权限时使用sudo。
@@ -251,8 +259,9 @@ Arch Wiki上提供的源有点慢，这里有国内的源的地址，可以测�
 
 ThinkPad X240默认识别两个声卡，把HDMI通道的声卡设置成为默认，这里如果想使用笔记
 本上的声卡，把PCH设置成默认，添加启动加载文件:
+//TODO look pcm
 
-	sudo vim /etc/modprobe.d/alsa-base.conf
+	vim /etc/modprobe.d/alsa-base.conf
 
 添加如下代码设置:
 
@@ -315,7 +324,7 @@ git不仅仅是一个版本管理工具，很多时候也是我们获取内容�
 
 配置git:
 
-    git config --global user.name "leesheen"
+    git config --global user.name "Lee Sheen"
     git config --global user.email "leesheen@outlook.com"
 
 很多时候访问Github很难，而我大部分git都是在Github上完成的，所以让所有的git都使用socks5代理来保证速度。当然也可以不添加，在访问困难的时候配合Proxychains使用，添加代理信息:
@@ -352,6 +361,13 @@ Zsh的高可定制性使我们获得一个优秀配置变得比较复杂，还�
 
 	./Tools/config-linux/script/ohmyzsh_install.sh
 
+添加alias
+
+	vim .zshrc
+
+	#添加需要的alias到最后
+	alias pcs='proxychains -q'
+
 **注意：**如果想在root用户下也使用zsh的此配置，在root用户下执行上面的命令
 
 ### Vim
@@ -365,6 +381,12 @@ Vim是一个强大的编辑器，对我来说最强大之处在于它的速度�
 YouCompleteMe拥有强大的补全和语义检查功能，安装:
 
 	yaourt vim-youcompleteme-git
+
+YCM检查语义需要clang的支持，安装:
+
+    pacman -S clang
+
+链接全局配置文件到配置目录j
 
 - Ctags
 
@@ -429,6 +451,81 @@ Xorg 是 X11 窗口系统的一个开源实现，当使用桌面环境或者窗�
 
     ln ~/Tools/config-linux/config/xinitrc ~/.xinitrc
     # 其中添加了fcitx和启动i3
+	cp /etc/X11/xinitrc/xserverrc ~/.xserverrc
+
+
+#### 安装Xfce
+
+xfce4是一个轻量级模块化的桌面环境。一般在需要桌面环境的时候作为备用。
+
+- 安装:
+
+安装xfce4和常用软件包:
+
+    sudo pacman -S xfce4 xfce4-goodies
+
+	yaourt solarized-dark-themes
+
+安装NetworkManager
+
+	pacman -S networkmanager network-manager-applet xfce4-notifyd dnsmasq ppp rp-pppoe modemmanager
+
+	sudo systemctl enable NetworkManager
+	sudo systemctl start NetworkManager
+
+安装Bluetooth:
+
+	pacman -S bluez bluez-utils blueman
+
+	sudo systemctl enable bluetooth
+	sudo systemctl start bluetooth
+
+如果需要开机启动蓝牙，添加下面文件:
+
+	vim /etc/udev/rules.d/10-local.rules
+
+	# Set bluetooth power up
+	ACTION=="add", KERNEL=="hci0", RUN+="/usr/bin/hciconfig hci0 up"
+
+配对蓝牙鼠标:
+
+如果使用双系统，而且使用蓝牙鼠标，那么让两个系统使用不用每次配对:
+
+	sudo pacman -S chntpw
+
+	mount /dev/sda4 /mnt/tmp/				# 挂载Windows安装目录
+	cd /mnt/tmp/Windows/System32/config/ 
+
+	chntpw -e SYSTEM 
+
+在chntpw下执行:
+
+	cd ControlSet001\Services\BTHPORT\Parameters\Keys 
+	ls										# 查看蓝牙的名称，选择进入
+	cd 5c514f631027 
+
+![Bluetooth-Mouse](./.pic/bt-mouse.jpg)
+
+复制上图的16进制代码并删除空格
+
+	90C13638D41763DF52243F17D566146F
+
+	su 										# 切换到root模式
+	cd /var/lib/bluetooth/
+	ls										# 查看蓝牙名称，应与上述一致
+	cd 5c:51:4f:63:10:27 
+	ls
+	cd 00:1F:20:A9:DB:71
+
+	vim info 
+
+把上述复制的16进制代码替换Key的值，保存重启即生效。
+
+安装VPN:
+
+    yaourt strongswan 
+	yaourt networkmanager-strongswan
+
 
 #### 安装i3窗口管理器:
 
@@ -442,7 +539,8 @@ Xorg 是 X11 窗口系统的一个开源实现，当使用桌面环境或者窗�
 
 //TODO
 
-    yaourt dmenu2 j4-dmenu-desktop-git
+    yaourt dmenu2 
+	yaourt j4-dmenu-desktop-git
 
 - 配置文件
 
@@ -452,17 +550,13 @@ Xorg 是 X11 窗口系统的一个开源实现，当使用桌面环境或者窗�
     ln ~/Tools/config-linux/config/i3/config ~/.config/i3/config
     ln ~/Tools/config-linux/config/i3/i3status ~/.config/i3status/config
 
-#### 安装Xfce
 
-xfce4是一个轻量级模块化的桌面环境。一般在需要桌面环境的时候作为备用。
 
-- 安装:
+背景
 
-安装xfce4和常用软件包:
+	pacman -S feh imagemagick
 
-    sudo pacman -S xfce4
-
-//TODO 配置文件
+	feh --bg-scale /path/to/image
 
 - 使用X
 
@@ -470,15 +564,25 @@ xfce4是一个轻量级模块化的桌面环境。一般在需要桌面环境的
 
     startx
 
+### 浏览器
+
+个人喜欢Chrome浏览器，在Arch下Pacman库中为开源的Chromium，不包含Flash组件，但现在国内的很多网站下缺少不了Flash，我选择同时安装，在移动状态下使用电池时选择Chromium。安装Chrome/Chromium:
+
+    sudo pacman -S chromium
+
+    yaourt google-chrome-stable
+
 ### 字体
 
 安装常用的英文字体和中文字体，个人很喜欢adebe的source系列开源字体，安装:
 
-    sudo pacman -S wqy-zenhei microhei \
-              adobe-source-code-pro-fonts \
+    sudo pacman -S ttf-dejavu wqy-microhei
+    sudo pacman -S adobe-source-code-pro-fonts \
               adobe-source-sans-pro-fonts \
               adobe-source-serif-pro-fonts \
               adobe-source-han-sans-cn-fonts
+
+	yaourt ttf-monaco
 
 
 //TODO 配置Terminal默认中文字体
@@ -493,14 +597,6 @@ xfce4是一个轻量级模块化的桌面环境。一般在需要桌面环境的
 
 在X下使用fcitx-configtool添加Sogou Pinyin，重新加载fcitx后，使用shift键就可以切换中/英文了。
 
-### 浏览器
-
-个人喜欢Chrome浏览器，在Arch下Pacman库中为开源的Chromium，不包含Flash组件，但现在国内的很多网站下缺少不了Flash，我选择同时安装，在移动状态下使用电池时选择Chromium。安装Chrome/Chromium:
-
-    sudo pacman -S chromium
-
-    yaourt google-chrome-stable
-
 ### Terminal
 
 以为之前使用KDE Plasma，很喜欢Konsole，但其实xfce4-terminal一样能完成Konsole的工作，而且更轻量。
@@ -509,7 +605,12 @@ xfce4是一个轻量级模块化的桌面环境。一般在需要桌面环境的
 
 在xfce安装过程中已经安装过xfce4-terminal。
 
-//TODO
+添加配置文件:
+
+	# 创建配置文件目录
+	mkdir -p ~/.config/xfce4/terminal
+	# 链接配置文件
+	ln ~/Tools/config-linux/terminalrc ~/.config/xfce4/terminal/terminalrc
 
 #### ~~Konsole~~
 
@@ -526,7 +627,7 @@ MPlayer是一个开源的播放器，快速好用，安装:
 	sudo pacman -S mplayer
 	# 自带解码包依赖
 
-TODO: 配置文件
+TODO: 配置文件字幕
 
 #### 
 
@@ -548,15 +649,20 @@ TODO: 配置文件
 
 之前使用Windows，所以硬盘中包含NTFS分区和额外的ext4分区，首先安装必要的磁盘工具支持fat/ntfs/exfat/hfs等分区格式:
 
-    sudo pacman -S  parted exfat-utils ntfs-3g dosfstools hfsprogs 
+    sudo pacman -S parted exfat-utils ntfs-3g dosfstools hfsprogs hdparm 
 
 上述的配置文件里面有默认的fstab，把硬盘1中Windows使用的NTFS分区（Data）和Linux EXT4（Data）挂载到/mnt下相应设备名称的目录下:
 
-    mkdir /mnt/sda6 /mnt/sda8 /mnt/sda9 /mnt/tmp
+    sudo mkdir /mnt/sda6 /mnt/sda8 /mnt/sda9 /mnt/tmp
+	sudo chmod g+w *
 
     sudo ln ~/Tools/config-linux/config/fstab /etc/fstab
     # 危险，应该添加额外的配置
 
+	sudo hdparm -I /dev/sdb | grep TRIM
+
+	systemctl enable fstrim.service fstrim.timer
+	systemctl start fstrim.service fstrim.timer
 
 ### Markdown
 
@@ -607,7 +713,65 @@ wget
 
 	yaourt wps-office ttf-wps-fonts
 
-
 ### 索引
+
 	pacman -S mlocate
 	updatedb
+
+### KVM
+
+	pacman -S qemu libvirt pm-util virt-manager
+	pacman -S ebtables dnsmasq bridge-utils openbsd-netcat
+
+修改配置文件:
+
+	vim /etc/libvirt/libvirtd.conf
+
+	# 解注释下面的配置
+	unix_sock_group = "libvirt"
+	unix_sock_ro_perms = "0777"  # set to 0770 to deny non-group libvirt users
+	unix_sock_rw_perms = "0770"
+	auth_unix_ro = "none"
+	auth_unix_rw = "none"
+
+	systemctl enable libvirtd.service virtlogd.service
+	systemctl start libvirtd.service virtlogd.service
+
+### NFS
+
+	pacman -S nfs-utils
+
+配置文件
+
+	vim /etc/exports
+	添加
+	/srv/nfs4/ 192.168.1.0/24(rw,fsid=root,no_subtree_check)
+	/srv/nfs4/music 192.168.1.0/24(rw,no_subtree_check,nohide) # note the nohide option which is applied to mounted directories on the file system.
+
+	vim /etc/conf.d/nfs-server.conf
+
+	添加
+	NFSD_OPTS="-N 2 -N 3"
+
+启动服务
+
+	systemctl enable nfs-server
+	systemctl start nfs-server
+
+### Samba
+
+	pacman -S samba
+	cp /etc/samba/smb.conf.default /etc/samba/smb.conf
+
+### Gedit
+
+### VirtualBox
+
+	pacman -S virtualbox virtualbox-guest-iso qt4 net-tools
+	yaourt virtualbox-ext-oracle
+
+	gpasswd -a leesheen vboxusers
+
+### Temp
+
+	pacman -S hddtemp
