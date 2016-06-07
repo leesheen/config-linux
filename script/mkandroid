@@ -1,0 +1,28 @@
+#!/bin/bash
+
+if [ -z $1 ] || [ $1 == "32" ]; then
+	_TARGET_PRODUCT="android_x86" 
+	build_var="$2"
+elif [ $1 == "64" ]; then
+	_TARGET_PRODUCT="android_86_64" 
+	build_var="$2"
+elif [ $1 == "user" ] || [ $1 == "userdebug" ] || [ $1 == "eng" ]; then
+	_TARGET_PRODUCT="android_x86" 
+	build_var="$1"
+else
+	_TARGET_PRODUCT="$1"
+	build_var="$2"
+fi
+
+if [ -z $build_var ] || [ $build_var == "userdebug" ]; then
+	_TARGET_BUILD_VARIANT="userdebug"
+else 
+	_TARGET_BUILD_VARIANT="$build_var"
+fi
+
+TARGET="$_TARGET_PRODUCT-$_TARGET_BUILD_VARIANT"
+
+
+source build/envsetup.sh
+lunch $TARGET
+make iso_img -j12
