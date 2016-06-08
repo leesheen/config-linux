@@ -23,6 +23,6 @@ fi
 TARGET="$_TARGET_PRODUCT-$_TARGET_BUILD_VARIANT"
 
 
-source build/envsetup.sh
+source ./build/envsetup.sh
 lunch $TARGET
 make iso_img -j12
