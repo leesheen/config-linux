@@ -1,28 +1,36 @@
 #!/bin/bash
 
-if [ -z $1 ] || [ $1 == "32" ]; then
-	_TARGET_PRODUCT="android_x86" 
-	build_var="$2"
-elif [ $1 == "64" ]; then
-	_TARGET_PRODUCT="android_86_64" 
-	build_var="$2"
-elif [ $1 == "user" ] || [ $1 == "userdebug" ] || [ $1 == "eng" ]; then
-	_TARGET_PRODUCT="android_x86" 
-	build_var="$1"
-else
-	_TARGET_PRODUCT="$1"
-	build_var="$2"
-fi
+_TARGET_PRODUCT="android_x86"
+_TARGET_BUILD_VARIANT="userdebug"
+_NEED_CLEAN=""
 
-if [ -z $build_var ] || [ $build_var == "userdebug" ]; then
-	_TARGET_BUILD_VARIANT="userdebug"
-else 
-	_TARGET_BUILD_VARIANT="$build_var"
-fi
+echo $1
+while ! [ -z $1 ]
+do
+	case $1 in
+		"32" )
+			_TARGET_PRODUCT="android_x86" 
+			;;
+		"64" )
+			_TARGET_PRODUCT="android_86_64" 
+			;;
+		"user" | "userdeug" | "eng" )
+			_TARGET_BUILD_VARIANT="$1"
+			;;
+		"clean" )
+			_NEED_CLEAN=clean
+			;;
+		* )
+			;;
+	esac
+
+	shift
+done
 
 TARGET="$_TARGET_PRODUCT-$_TARGET_BUILD_VARIANT"
+echo $TARGET
 
-
+[ -z $_NEED_CLEAN ] || echo make clean #make clean
 source ./build/envsetup.sh
 lunch $TARGET
 make iso_img -j12
