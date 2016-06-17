@@ -6,6 +6,7 @@
 	ui = auto
 [core]
 	editor = vim
+	excludesfile = /home/leesheen/.gitignore
 [alias]
 	co = checkout
 	br = branch

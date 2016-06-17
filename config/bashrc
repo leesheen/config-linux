@@ -115,10 +115,12 @@ fi
 
 # added by leesheen for ccache
 export USE_CCACHE=1
-export CCACHE_DIR=/cache/ccache
+export CCACHE_DIR=/home/leesheen/.ccache
 
-# added by leesheen for repo
-PATH=~/bin:$PATH
+export OUT_DIR_COMMON_BASE=/out
+
+# added by leesheen 
+PATH=~/bin:/usr/lib/ccache:$PATH
 
 # added by leesheen
 alias pcs='proxychains4 -q'
