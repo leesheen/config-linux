@@ -30,16 +30,18 @@ done
 TARGET="$_TARGET_PRODUCT-$_TARGET_BUILD_VARIANT"
 echo $TARGET
 
-[ -z $_NEED_CLEAN ] || echo make clean #make clean
 source ./build/envsetup.sh
 lunch $TARGET
 
+#make clean
+[ -z $_NEED_CLEAN ] || make clean
+
 # Timing
-TIME_START=`date +%s`
+#TIME_START=`date +%s`
 make iso_img -j12
-TIME_END=`date +%s`
+#TIME_END=`date +%s`
 
-TIME_MIN=$(( ($TIME_END - $TIME_START) / 60 ))
-TIME_SEC=$(( ($TIME_END - $TIME_START) % 60))
-
-echo "Use time: "$TIME_MIN"m "$TIME_SEC"s"
+#TIME_MIN=$(( ($TIME_END - $TIME_START) / 60 ))
+#TIME_SEC=$(( ($TIME_END - $TIME_START) % 60))
+#
+#echo "Use time: "$TIME_MIN"m "$TIME_SEC"s"
