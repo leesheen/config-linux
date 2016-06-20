@@ -125,6 +125,7 @@ PATH=~/bin:/usr/lib/ccache:$PATH
 # added by leesheen
 # Apps
 alias pcs='proxychains4 -q'
+alias vbox='sudo virtualbox'
 
 # Dirs
 alias cdwo='cd ~/workdir/'
@@ -142,3 +143,4 @@ alias menuconfig='make -C kernel O=$OUT/obj/kernel ARCH=x86 menuconfig'
 alias makekv='make kernelversion'
 
 powerline-daemon -q
+
