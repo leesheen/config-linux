@@ -412,6 +412,10 @@ Ctags是Linux下的跟踪文件的利器，安装:
 
 	yaourt ttf-cosolas-powerline
 
+Ubuntu 下设置
+
+	http://blog.topspeedsnail.com/archives/2652
+
 ### Keyboard
 
 Xbindkeys是一个可以允许用户自定义键值的程序，我们可以利用它来自定义一些按键，比
