@@ -84,7 +84,10 @@ source $ZSH/oh-my-zsh.sh
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 #
 # added by leesheen
+# Apps
 alias pcs='proxychains4 -q'
+
+# Dirs
 alias cdwo='cd ~/workdir/'
 alias cdk='cd ~/workdir/linux/kernel'
 alias cdos='cd ~/workdir/android'
@@ -93,5 +96,10 @@ alias cdbetaos='cd ~/workdir/android/x86/phoenixOS-marshmallow'
 alias cdnativeos='cd ~/workdir/android/x86/x86-marshmallow'
 alias cdout='cd out/target/product/'
 alias cdlog='cd ~/workdir/log/'
+
+# make 
 alias makemenuconfig='make -C kernel O=$OUT/obj/kernel ARCH=x86 menuconfig'
 alias menuconfig='make -C kernel O=$OUT/obj/kernel ARCH=x86 menuconfig'
+alias makekv='make kernelversion'
+
+powerline-daemon -q

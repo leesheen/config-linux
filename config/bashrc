@@ -123,16 +123,22 @@ export OUT_DIR_COMMON_BASE=/out
 PATH=~/bin:/usr/lib/ccache:$PATH
 
 # added by leesheen
+# Apps
 alias pcs='proxychains4 -q'
+
+# Dirs
 alias cdwo='cd ~/workdir/'
 alias cdk='cd ~/workdir/linux/kernel'
-alias cdos='cd ~/workdir/phoenixOS/'
-alias cdlollbetaos='cd ~/workdir/phoenixOS/x86/lollipop/beta/'
-alias cdbetaos='cd ~/workdir/phoenixOS/x86/marshmallow/beta/'
-alias cdnativeos='cd ~/workdir/phoenixOS/x86/marshmallow/native/'
+alias cdos='cd ~/workdir/android'
+alias cdlollbetaos='cd ~/workdir/android/x86/phoenixOS-lollipop'
+alias cdbetaos='cd ~/workdir/android/x86/phoenixOS-marshmallow'
+alias cdnativeos='cd ~/workdir/android/x86/x86-marshmallow'
 alias cdout='cd out/target/product/'
 alias cdlog='cd ~/workdir/log/'
+
+# make 
 alias makemenuconfig='make -C kernel O=$OUT/obj/kernel ARCH=x86 menuconfig'
 alias menuconfig='make -C kernel O=$OUT/obj/kernel ARCH=x86 menuconfig'
+alias makekv='make kernelversion'
 
-
+powerline-daemon -q

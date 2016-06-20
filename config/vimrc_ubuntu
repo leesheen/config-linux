@@ -43,8 +43,8 @@ Plugin 'c.vim'
 
 " Powerline
 "Plugin 'Lokaltog/vim-powerline'
-Plugin 'vim-airline/vim-airline'
-Plugin 'vim-airline/vim-airline-themes'
+"Plugin 'vim-airline/vim-airline'
+"Plugin 'vim-airline/vim-airline-themes'
 
 " TagList
 Plugin 'taglist.vim'
@@ -200,12 +200,13 @@ let g:ycm_collect_identifiers_from_comments_and_strings = 0
 let g:ycm_seed_identifiers_with_syntax=1	" 语法关键字补全
 "----------------------------------------------
 
-let g:airline_powerline_fonts = 1
+let g:airline_powerline_fonts=1
+set rtp+=/usr/local/lib/python2.7/dist-packages/powerline/bindings/vim/
 " PowerLine 配置
 "----------------------------------------------
-let g:Powerline_symbols = 'fancy'
+"let g:Powerline_symbols='fancy'
 set laststatus=2
-set noshowmode
+"set noshowmode
 "----------------------------------------------
 
 
