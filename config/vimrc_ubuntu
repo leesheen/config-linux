@@ -112,6 +112,7 @@ set autowrite 			" 自动把内容写回文件
 
 set nobackup			" 不产生~备份文件
 set number 				" 显示行号
+set relativenumber		" 显示相对行号
 set ruler				" 最后一行显示标尺
 set showcmd 			" 右下角显示命令模式的命令
 set hidden 				" 隐藏缓冲区
