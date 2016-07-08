@@ -1,0 +1,6 @@
+[submodule "tools/autojump"]
+	path = tools/autojump
+	url = git://github.com/joelthelion/autojump.git
+[submodule "tools/proxychains-ng"]
+	path = tools/proxychains-ng
+	url = https://github.com/rofl0r/proxychains-ng.git
