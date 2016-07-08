@@ -37,6 +37,9 @@ echo && echo
 TARGET="$_TARGET_PRODUCT-$_TARGET_BUILD_VARIANT"
 echo "Will build target is $TARGET !!!"
 
+source ./build/envsetup.sh 1>/dev/null 2>&1 
+lunch $TARGET 1>/dev/null 2>&1
+
 # 没有参数时编译最后不产生7z文件，加快速度，减少硬盘读写
 if [ -z $_NEED_ZIP ]; then
 	echo "DON'T Generate android_x86.7z !!!!"   
@@ -57,9 +60,6 @@ fi
 
 echo && echo
 
-source ./build/envsetup.sh 
-lunch $TARGET 1>/dev/null 2>&1
-
 # make clean
 [ -z $_NEED_CLEAN ] || make clean
 
@@ -78,5 +78,3 @@ mv $BAKFILE $SRCFILE
 #TIME_SEC=$(( ($TIME_END - $TIME_START) % 60))
 #
 #echo "Use time: "$TIME_MIN"m "$TIME_SEC"s"
-
-
