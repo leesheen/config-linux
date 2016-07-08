@@ -4,3 +4,6 @@
 [submodule "tools/proxychains-ng"]
 	path = tools/proxychains-ng
 	url = https://github.com/rofl0r/proxychains-ng.git
+[submodule "tools/powerline-fonts"]
+	path = tools/powerline-fonts
+	url = https://github.com/powerline/fonts
