@@ -98,6 +98,13 @@ alias cdnativeos='cd ~/workdir/android/x86/x86-marshmallow'
 alias cdout='cd out/target/product/'
 alias cdlog='cd ~/workdir/log/'
 
+# Files
+alias -s c='vim'
+alias -s cc='vim'
+alias -s S='vim'
+alias -s cpp='vim'
+alias -s h='vim'
+
 # make 
 alias makekv='make kernelversion'
 
