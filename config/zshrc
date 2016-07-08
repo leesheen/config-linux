@@ -99,8 +99,6 @@ alias cdout='cd out/target/product/'
 alias cdlog='cd ~/workdir/log/'
 
 # make 
-alias makemenuconfig='make -C kernel O=$OUT/obj/kernel ARCH=x86 menuconfig'
-alias menuconfig='make -C kernel O=$OUT/obj/kernel ARCH=x86 menuconfig'
 alias makekv='make kernelversion'
 
 powerline-daemon -q
