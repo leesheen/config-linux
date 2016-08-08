@@ -62,12 +62,15 @@ echo && echo
 
 # make clean
 [ -z $_NEED_CLEAN ] || make clean
+[ -d $ANDROID_PRODUCT_OUT/obj/tp_smapi.kmodule ] && rm -rf $ANDROID_PRODUCT_OUT/obj/tp_smapi.kmodule
 
-make iso_img -j12
+make iso_img -j8
 
 # 恢复Android.mk
-rm $SRCFILE
-mv $BAKFILE $SRCFILE
+if [ -z $_NEED_ZIP ]; then
+	rm $SRCFILE
+	mv $BAKFILE $SRCFILE
+fi
 # END
 
 # Timing
