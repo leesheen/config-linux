@@ -99,6 +99,12 @@ alias cdout='cd out/target/product/'
 alias cdlog='cd ~/workdir/log/'
 
 # Files
+alias -s xz='tar xvf'
+alias -s bz2='tar xvf'
+alias -s gz='tar xvf'
+alias -s zip='unzip'
+alias -s rar='unrar'
+alias -s 7z='7za x'
 alias -s c='vim'
 alias -s cc='vim'
 alias -s S='vim'
@@ -108,4 +114,14 @@ alias -s h='vim'
 # make 
 alias makekv='make kernelversion'
 
+# other
+alias retsave='~/tools/config-linux/script/work/shellreturn.sh -s'
+alias retpop='~/tools/config-linux/script/work/shellreturn.sh -p'
+
+# Powerline
 powerline-daemon -q
+
+# autojump
+[[ -s /home/leesheen/.autojump/etc/profile.d/autojump.sh ]] && source /home/leesheen/.autojump/etc/profile.d/autojump.sh
+autoload -U compinit && compinit -u
+
