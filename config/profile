@@ -30,5 +30,4 @@ export CXX=/usr/lib/ccache/g++
 export OUT_DIR_COMMON_BASE=/out
 
 # added by leesheen 
-PATH=~/bin:/usr/lib/ccache:$PATH
-
+PATH=~/bin:/home/leesheen/tools/config-linux/tools/raspi-tools/arm-bcm2708/gcc-linaro-arm-linux-gnueabihf-raspbian-x64/bin:/usr/lib/ccache:~/workdir/android/x86/x86-lollipop/prebuilts/gcc/linux-x86/x86/x86_64-linux-android-4.9/bin/:$PATH
