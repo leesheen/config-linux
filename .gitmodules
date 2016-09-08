@@ -7,3 +7,6 @@
 [submodule "tools/powerline-fonts"]
 	path = tools/powerline-fonts
 	url = https://github.com/powerline/fonts
+[submodule "tools/raspi-tools"]
+	path = tools/raspi-tools
+	url = https://github.com/raspberrypi/tools
