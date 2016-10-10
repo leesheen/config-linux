@@ -25,7 +25,7 @@
 
 测试网络是否连通:
 
-e   ping -c 3 www.archlinux.org
+   	ping -c 3 www.archlinux.org
 
 ### 时间
 
@@ -54,9 +54,9 @@ e   ping -c 3 www.archlinux.org
     mkfs.fat -F32 /dev/sdb
     mkfs.ext4 /dev/sdx
 
-挂载分区:
+挂载分区，此处最好添加相应的参数，尤其是btrfs:
 
-    mount /dev/sdb2 /mnt
+    mount /dev/sdb2 /mnt -o defaults,noatime,discard
     mkdir /mnt/boot
     mount /dev/sdb1 /mnt/boot
 
@@ -82,10 +82,9 @@ e   ping -c 3 www.archlinux.org
 	
     vim /mnt/etc/fstab
 
-因为使用SSD并支持TRIM，修改参数减少硬盘写入，并添加discard开启TRIM:
-
-    UUID=xx  /  ext4  defaults,noatime,discard  0  1 
-    # relatime -> noatime & add discard
+~~因为使用SSD并支持TRIM，修改参数减少硬盘写入，并添加discard开启TRIM:~~
+fstrim.service and fstrim.timer 比上述更常用，某些情况或者分区格式下，
+此方法无效，可以使用discard参数。
 
 ### chroot
 
@@ -130,6 +129,8 @@ chroot系统，以完成安装的最后工作:
 
 ### Bootloader
 
+#### EFISTUB
+
 因为使用 UEFI + GPT，直接使用 systemd 工具生成启动信息:
 
     bootctl install
@@ -150,6 +151,19 @@ chroot系统，以完成安装的最后工作:
 
     vim /boot/loader/loader.conf
     #add default arch & add timeout 0
+
+#### Grub
+
+在需要使用grub引导的情况下，可以安装grub工具：
+
+	pacman -S grub efibootmgr
+
+配置grub
+
+	grub-install --target=x86_64-efi --efi-directory=/boot --bootloader-id=grub
+	grub-install --target=i386-efi --efi-directory=/boot --bootloader-id=grub
+
+//TODO BIOS System LVM RAID etc... 
 
 ### 计算机名
 
@@ -203,10 +217,9 @@ WLAN
     useradd -m -G wheel -s /bin/zsh leesheen
     passwd leesheen
 
-把leesheen用户添加到sudo用户组中:
+解注释下面，使得wheel组用户可以拥有sudo权限
 
-    vim /etc/sudoers
-    #add leesheen ALL=(ALL) ALL
+	%wheel ALL=(ALL) ALL
 
 ### AUR
 
