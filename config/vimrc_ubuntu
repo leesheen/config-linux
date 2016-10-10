@@ -121,8 +121,8 @@ set nowrap				" 代码超过一行是不折叠显示
 set whichwrap=h,l,b,s,<,>,[,] " 处理移动到行首位是否继续
 set scrolloff=3			" 光标移动到顶部或底部保持行数
 set history=100 		" 记录历史命令
-" set cursorline			" 高亮光标所在行
-"set cursorcolumn		: 高亮光标所在列
+set cursorline			" 高亮光标所在行
+set cursorcolumn		" 高亮光标所在列
 "set helplang=cn 		" 帮助文档
 "set helpheight=10
 "set   guioptions-=T
@@ -223,6 +223,7 @@ let Tlist_Exit_OnlyWindow=1 		"当taglist是最后一个分割窗口时，自动
 "let Tlist_Process_File_Always=0  "是否一直处理tags.1:处理;0:不处理  
 "----------------------------------------------
 
+map <F3> : Sex<CR>
 
 "CtrlP 配置
 "----------------------------------------------
