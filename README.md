@@ -792,3 +792,14 @@ wget
 ### Temp
 
 	pacman -S hddtemp
+
+### error 
+
+错误
+
+	==> Verifying source file signatures with gpg...
+    ffmpeg-3.1.3.tar.bz2 ... FAILED (unknown public key B4322F04D67658D8)
+	==> ERROR: One or more PGP signatures could not be verified!
+	==> ERROR: Makepkg was unable to build ffmpeg-mmal.
+
+	gpg --recv-keys --keyserver hkp://pgp.mit.edu B4322F04D67658D8
