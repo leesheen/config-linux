@@ -119,7 +119,7 @@ alias retsave='~/tools/config-linux/script/work/shellreturn.sh -s'
 alias retpop='~/tools/config-linux/script/work/shellreturn.sh -p'
 
 # Powerline
-powerline-daemon -q
+#powerline-daemon -q
 
 # autojump
 [[ -s /home/leesheen/.autojump/etc/profile.d/autojump.sh ]] && source /home/leesheen/.autojump/etc/profile.d/autojump.sh
