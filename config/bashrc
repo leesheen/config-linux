@@ -120,7 +120,7 @@ export CCACHE_DIR=/home/leesheen/.ccache
 export OUT_DIR_COMMON_BASE=/out
 
 # added by leesheen 
-PATH=~/bin:/usr/lib/ccache:$PATH
+PATH=~/tools/config-linux/script/work:/usr/lib/ccache:$PATH
 
 # added by leesheen
 # Apps
