@@ -1,0 +1,83 @@
+#!/bin/bash
+
+
+# mount samba
+
+PWD=`pwd`
+RET=0
+TIME=dir_`date +%s`
+DIRNAME=$PWD/$TIME
+COPY_ARGUMENT=""
+
+function mktempdir()
+{
+	mkdir $DIRNAME
+
+	RET=$?
+	if [ $RET -ne 0 ]; then
+		echo "Create '$DIRNAME' Error ($RET), Please try again."
+		exit 1
+	fi
+
+}
+
+function rmtempdir()
+{
+	rm $DIRNAME -r
+
+	RET=$?
+	if [ $RET -ne 0 ]; then
+		echo "Remove '$DIRNAME' Error ($RET), Please DELETE $DIRNAME by yourself."
+		exit 1
+	fi
+}
+
+function mountdir()
+{
+	sudo mount -t cifs //192.168.1.112/share/lixin/PhoenixOS/ $DIRNAME -o username=admin,noexec
+
+	RET=$?
+	if [ $RET -ne 0 ]; then
+		echo "Mount '$USBDISKPART' Error ($RET)"
+		rmtempdir
+		exit 1
+	fi
+}
+
+function umountdir()
+{
+	sudo umount $DIRNAME 
+
+	RET=$?
+	if [ $RET -ne 0 ]; then
+		echo "Umount '$DIRNAME' Error ($RET), Please CHECK&DELETE $DIRNAME by yourself"
+		exit 1
+	fi
+}
+
+
+function copyfile()
+{
+
+	sudo cp android_x86.7z $DIRNAME/
+
+	RET=$?
+	if [ $RET -ne 0 ]; then
+		echo "Copy '$USBDISKPART' Error ($RET)"
+		umountdir
+		rmtempdir
+		exit 1
+	fi
+
+	ls -l $DIRNAME/
+	sync
+}
+
+
+# 7z 
+7za a -t7z android_x86.7z initrd.img install.img kernel ramdisk.img system.img
+mktempdir
+mountdir
+copyfile
+umountdir
+rmtempdir
