@@ -33,7 +33,9 @@ done
 
 KERNEL_VERSION=`make kernelversion | cut -d "." -f1-2`
 
-KERNEL_OUT=/out/kernel/$KERNEL_ARCH/$KERNEL_VERSION
+KERNEL_SOURCE_DIR=`basename $PWD`
+
+KERNEL_OUT=/out/kernel/$KERNEL_ARCH/$KERNEL_SOURCE_DIR
 
 #KERNEL_TOOLCHAIN=/data/leesheen/workdir/phoenixOS/x86/marshmallow/beta/prebuilts/gcc/linux-x86/x86/x86_64-linux-android-4.9/bin/x86_64-linux-android-
 
