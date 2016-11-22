@@ -153,7 +153,7 @@ set mouse-scroll		= 3		# Number of lines to scroll via the mouse
 #   %(diffargs)		The diff options from `diff-options` or `TIG_DIFF_OPTS`
 #   %(prompt)		Prompt for the argument value.
 
-bind main	C	?git cherry-pick %(commit)
+bind main	C	?git cherry-pick --signoff %(commit)
 bind status	C	!git commit
 bind stash	A	?git stash apply %(stash)
 bind stash	P	?git stash pop %(stash)
