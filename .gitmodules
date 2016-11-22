@@ -10,3 +10,6 @@
 [submodule "tools/raspi-tools"]
 	path = tools/raspi-tools
 	url = https://github.com/raspberrypi/tools
+[submodule "tools/tig"]
+	path = tools/tig
+	url = https://github.com/jonas/tig.git
