@@ -125,3 +125,4 @@ alias retpop='~/tools/config-linux/script/work/shellreturn.sh -p'
 [[ -s /home/leesheen/.autojump/etc/profile.d/autojump.sh ]] && source /home/leesheen/.autojump/etc/profile.d/autojump.sh
 autoload -U compinit && compinit -u
 
+export REPO_URL='https://mirrors.tuna.tsinghua.edu.cn/git/git-repo/'
