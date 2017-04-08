@@ -47,16 +47,16 @@
     (parted) mklable gpt
     (parted) mkpart ESP fat32 1MiB 513MiB
     (parted) set 1 boot on
-    (parted) mkpart primary ext4 513MiB 100%
+    (parted) mkpart primary btrfs 513MiB 100%
 
 格式化分区:
 
     mkfs.fat -F32 /dev/sdb
-    mkfs.ext4 /dev/sdx
+    mkfs.btrfs /dev/sdx
 
 挂载分区，此处最好添加相应的参数，尤其是btrfs:
 
-    mount /dev/sdb2 /mnt -o defaults,noatime,discard
+    mount /dev/sdb2 /mnt -o defaults,noatime,ssd,compress=lzo,subvol=@root
     mkdir /mnt/boot
     mount /dev/sdb1 /mnt/boot
 
@@ -70,7 +70,7 @@
 
     pacman -Syy #一般不需要，但可以测试选择镜像服务器速度用
 
-    pacstrap -i /mnt base base-devel
+    pacstrap /mnt base base-devel btrfs-progs
 
 ### fstab
 
@@ -90,7 +90,7 @@ fstrim.service and fstrim.timer 比上述更常用，某些情况或者分区格
 
 chroot系统，以完成安装的最后工作:
 
-    arch-chroot /mnt /bin/bash
+    arch-chroot /mnt
 
 ### 安装一些工具
 
@@ -117,8 +117,7 @@ chroot系统，以完成安装的最后工作:
 
 设置时区，并同步到系统时钟:
 
-    tzselect
-    ln -s /usr/share/zoneinfo/Asia/Shanghai /etc/localtime
+    ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime
     hwclock --systohc --utc
 
 ### ramdisk
@@ -156,12 +155,18 @@ chroot系统，以完成安装的最后工作:
 
 在需要使用grub引导的情况下，可以安装grub工具：
 
-	pacman -S grub efibootmgr
+	pacman -S grub efibootmgr os-prober
 
 配置grub
 
 	grub-install --target=x86_64-efi --efi-directory=/boot --bootloader-id=grub
 	grub-install --target=i386-efi --efi-directory=/boot --bootloader-id=grub
+
+	grub-mkconfig -o /boot/grub/grub.cfg
+
+	pacman -S breeze-grub
+
+配置/etc/default/grub，添加theme
 
 //TODO BIOS System LVM RAID etc... 
 
@@ -261,12 +266,12 @@ Arch Wiki上提供的源有点慢，这里有国内的源的地址，可以测�
 
 安装显示驱动:
 
-    pacman -S mesa-libgl xf86-video-intel libva-intel-driver libvdpau-va-gl
+    pacman -S mesa-libgl xf86-video-intel vulkan-intel libva-intel-driver libvdpau-va-gl
 	mesa-demos
 
 ### 声音
 
-内核已经集成ALSA驱动，这里安装工具:
+~~内核已经集成ALSA驱动，这里安装工具:~~
 
 	pacman -S alsa-utils
 
@@ -283,6 +288,33 @@ ThinkPad X240默认识别两个声卡，把HDMI通道的声卡设置成为默认
 	options snd_hda_intel index=1
 
 重新启动，PCH声卡就变成默认声卡了。
+
+### SSD
+
+开启fstrim
+
+	systemctl enable fstrim.timer
+
+修改调度器
+
+/etc/udev/rules.d/60-schedulers.rules
+	# set deadline scheduler for non-rotating disks
+	ACTION=="add|change", KERNEL=="sd[a-z]", ATTR{queue/rotational}=="0", ATTR{queue/scheduler}="noop"
+
+swappiness
+
+/etc/sysctl.d/99-sysctl.conf
+
+	vm.swappiness=10
+
+profile-sync-daemon
+
+	yaourt  profile-sync-daemon
+
+makepkg for tmpfs
+/etc/makepkg.conf
+
+	BUILDDIR=/tmp/makepkg makepkg
 
 ### 切换用户
 
@@ -397,7 +429,7 @@ YouCompleteMe拥有强大的补全和语义检查功能，安装:
 
 YCM检查语义需要clang的支持，安装:
 
-    pacman -S clang
+~~    pacman -S clang~~
 
 链接全局配置文件到配置目录j
 
@@ -405,7 +437,7 @@ YCM检查语义需要clang的支持，安装:
 
 Ctags是Linux下的跟踪文件的利器，安装:
 
-	pacman -S ctags
+	pacman -S ctags cscope
 
 - Vundle
 
@@ -470,6 +502,13 @@ Xorg 是 X11 窗口系统的一个开源实现，当使用桌面环境或者窗�
     # 其中添加了fcitx和启动i3
 	cp /etc/X11/xinitrc/xserverrc ~/.xserverrc
 
+#### 安装gnome
+
+安装gnome
+
+    sudo pacman -S xfce4 xfce4-goodies
+
+其他配置参见xfce4
 
 #### 安装Xfce
 
@@ -550,14 +589,12 @@ xfce4是一个轻量级模块化的桌面环境。一般在需要桌面环境的
 
 窗口管理器的效率在习惯养成后远远大于桌面环境，awesome/i3-wm等都是代表者，而i3-wm更是简单高效。
 
-    sudo pacman -S i3-wm i3lock i3status
+    sudo pacman -S i3
 
 - 安装工具:
 
-//TODO
-
-    yaourt dmenu2 
 	yaourt j4-dmenu-desktop-git
+	yaourt py3status-git
 
 - 配置文件
 
@@ -566,8 +603,6 @@ xfce4是一个轻量级模块化的桌面环境。一般在需要桌面环境的
     mkdir -p ~/.config/i3 ~/.config/i3status
     ln ~/Tools/config-linux/config/i3/config ~/.config/i3/config
     ln ~/Tools/config-linux/config/i3/i3status ~/.config/i3status/config
-
-
 
 背景
 
@@ -589,17 +624,21 @@ xfce4是一个轻量级模块化的桌面环境。一般在需要桌面环境的
 
     yaourt google-chrome-stable
 
+Flash
+
 ### 字体
 
 安装常用的英文字体和中文字体，个人很喜欢adebe的source系列开源字体，安装:
 
     sudo pacman -S ttf-dejavu wqy-microhei
-    sudo pacman -S adobe-source-code-pro-fonts \
-              adobe-source-sans-pro-fonts \
-              adobe-source-serif-pro-fonts \
-              adobe-source-han-sans-cn-fonts
+    sudo pacman -S adobe-source-han-sans-cn-fonts \
+		adobe-source-code-pro-fonts \
+		adobe-source-han-serif-cn-fonts \
+		adobe-source-sans-pro-fonts \
+		adobe-source-serif-pro-fonts
 
-	yaourt ttf-monaco
+    yaourt ttf-monaco
+    yaourt inziu
 
 
 //TODO 配置Terminal默认中文字体
@@ -614,9 +653,14 @@ xfce4是一个轻量级模块化的桌面环境。一般在需要桌面环境的
 
 在X下使用fcitx-configtool添加Sogou Pinyin，重新加载fcitx后，使用shift键就可以切换中/英文了。
 
+添加环境变量至.xprofile, 配置文件在config中
+
+
 ### Terminal
 
-以为之前使用KDE Plasma，很喜欢Konsole，但其实xfce4-terminal一样能完成Konsole的工作，而且更轻量。
+以为之前使用KDE Plasma，很喜欢Konsole
+
+	pacman -S konsole
 
 #### xfce4-terminal
 
@@ -641,7 +685,7 @@ xfce4是一个轻量级模块化的桌面环境。一般在需要桌面环境的
 
 MPlayer是一个开源的播放器，快速好用，安装:
 	
-	sudo pacman -S mplayer
+	sudo pacman -S gnome-mplayer
 	# 自带解码包依赖
 
 TODO: 配置文件字幕
@@ -724,6 +768,7 @@ wget
 
 ### SSH
 
+	pacman -S openssh
 	yaourt openssh-hpn-git
 
 ### WPS
@@ -792,6 +837,13 @@ wget
 ### Temp
 
 	pacman -S hddtemp
+
+### Android
+
+	yaourt android-sdk
+	yaourt android-studio
+	pacman -S android-tools
+	pacman -S android-udev
 
 ### error 
 
