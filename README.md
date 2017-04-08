@@ -845,6 +845,10 @@ wget
 	pacman -S android-tools
 	pacman -S android-udev
 
+### build kernel
+
+	pacman -S base-devel xmlto docbook-xsl kmod inetutils bc
+
 ### error 
 
 错误
