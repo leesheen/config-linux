@@ -35,7 +35,8 @@ set $right semicolon
 floating_modifier Mod4
 
 # start a terminal
-bindsym Mod4+Return exec --no-startup-id xfce4-terminal
+# bindsym Mod4+Return exec --no-startup-id xfce4-terminal
+bindsym Mod4+Return exec --no-startup-id konsole
 # bindsym Mod4+Return exec --no-startup-id i3-sensible-terminal
 
 # start a terminal
@@ -168,10 +169,13 @@ bindsym Mod4+r mode "resize"
 # Start i3bar to display a workspace bar (plus the system information i3status
 # finds out, if available)
 bar {
-        status_command i3status
+        #status_command i3status
+        status_command py3status -c ~/.config/i3status/config
         tray_output primary
+		position top
 }
 
+exec --no-startup-id fcitx
 #######################################################################
 # automatically start i3-config-wizard to offer the user to create a
 # keysym-based config which used their favorite modifier (alt or windows)
@@ -182,3 +186,4 @@ bar {
 # Please remove the following exec --no-startup-id line:
 #######################################################################
 exec --no-startup-id i3-config-wizard
+#exec --no-startup-id feh --bg-scale /home/leesheen/tools/config-linux
