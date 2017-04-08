@@ -232,3 +232,6 @@ let g:ctrlp_custom_ignore = {
     \ }
 "----------------------------------------------
 
+"
+"----------------------------------------------
+au BufReadPost * if line("'\"") > 0|if line("'\"") <= line("$")|exe("norm '\"")|else|exe "norm $"|endif|endif
