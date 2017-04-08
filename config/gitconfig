@@ -1,7 +1,9 @@
 [user]
 #	name = lixin
-	name = Li Xin
+#	name = Li Xin
+	name = Lee Sheen
 #	email = lixin@phoenixos.com
+#	email = lixin.engr@gmail.com
 	email = lixin.engr@gmail.com
 [color]
 	ui = auto
@@ -14,3 +16,7 @@
 	ci = commit
 	st = status
 	lg = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr)%C(bold blue)<%an>%Creset' --abbrev-commit
+[https]
+	proxy = socks5://127.0.0.1:1080
+[http]
+	proxy = socks5://127.0.0.1:1080
