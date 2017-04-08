@@ -39,7 +39,7 @@ echo $KERNEL_CONFIG
 ########################################
 
 #KERNEL_MAKE="make O=$KERNEL_OUT ARCH=x86 CROSS_COMPILE=$KERNEL_TOOLCHAIN"
-KERNEL_MAKE="make O=$KERNEL_OUT ARCH=$KERNEL_ARCH"
+KERNEL_MAKE="make O=$KERNEL_OUT ARCH=$KERNEL_ARCH" CROSS_COMPILE=/home/leesheen/workdir/android/x86/x86-nougat/prebuilts/gcc/linux-x86/x86/x86_64-linux-android-4.9/bin/x86_64-linux-android-
 
 $KERNEL_MAKE $KERNEL_CONFIG
 $KERNEL_MAKE menuconfig
