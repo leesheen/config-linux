@@ -12,7 +12,7 @@ NEED_CLEAN=""
 # Choose kernel arch
 KERNEL_ARCH=x86
 
-echo $1
+echo Script para : $1
 while ! [ -z $1 ]
 do
 	case $1 in
@@ -41,8 +41,10 @@ KERNEL_OUT=/srv/out/kernel/$KERNEL_ARCH/$KERNEL_SOURCE_DIR
 
 KERNEL_CONFIG=android-"$KERNEL_ARCH"_defconfig
 
-echo $KERNEL_OUT
-echo $KERNEL_CONFIG
+CPU_CORES=`cat /proc/cpuinfo | grep "processor" | wc -l`
+
+echo Build out directory : $KERNEL_OUT
+echo Build kernel config : $KERNEL_CONFIG
 
 ########################################
 
@@ -52,7 +54,7 @@ KERNEL_MAKE="make O=$KERNEL_OUT ARCH=$KERNEL_ARCH" CROSS_COMPILE=/home/leesheen/
 [ -z $NEED_CLEAN ] || ( $KERNEL_MAKE clean && echo "make clean finish." )
 $KERNEL_MAKE $KERNEL_CONFIG
 #$KERNEL_MAKE -j8
-$KERNEL_MAKE -j4 bzImage modules
+$KERNEL_MAKE -j$CPU_CORES bzImage modules
 
 ########################################
 # Timing calc
