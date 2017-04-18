@@ -2,18 +2,32 @@
 # /etc/fstab: static file system information
 #
 # <file system>	<dir>	<type>	<options>	<dump>	<pass>
+# /dev/sda6 btrfs Arch Root
+UUID=8320d8c8-85eb-422c-9049-32941859992b	/         	btrfs     	rw,noatime,compress=lzo,ssd,space_cache,subvol=/@root	0 0
 
-# /dev/sdb1 FAT32 ESP Disk
-UUID=7549-6813 /boot vfat defaults,noatime,discard 0 2
+# /dev/sdb1 Linux EFI
+UUID=F1EE-81E3      	/boot     	vfat      	rw,noatime,fmask=0022,dmask=0022,codepage=437,iocharset=iso8859-1,shortname=mixed,errors=remount-ro	0 2
 
-# /dev/sdb2 EXT4 Linux Root Disk
-UUID=8a23c5ba-2ed0-4bc3-bf35-dfb553710efd / ext4 defaults,noatime,discard 0 1
+# /dev/sda6 btrfs Arch Home
+UUID=8320d8c8-85eb-422c-9049-32941859992b	/home     	btrfs     	rw,noatime,compress=lzo,ssd,space_cache,subvol=/@home	0 0
 
-# /dev/sda6 NTFS Windows Data Disk (noauto mount)
-UUID=56D002CBD002B0F3 /mnt/sda6 ntfs-3g noauto,noatime,discard,uid=1000,gid=1000,dmask=022,fmask=133 0 0
+# /dev/sda6 brtfs data
+UUID=8320d8c8-85eb-422c-9049-32941859992b	/srv/data     	btrfs     	rw,noatime,compress=lzo,ssd,space_cache,subvol=/@data	0 0
 
-# /dev/sda8 EXT4 Linux Home Disk
-UUID=bb0d3418-38ff-4516-a639-f88b2df871bf /mnt/sda8 ext4 defaults,user,noauto,noatime,discard 0 0
+# /dev/sda6 brtfs data
+UUID=8320d8c8-85eb-422c-9049-32941859992b	/var/lib/libvirt/images     	btrfs     	rw,noatime,ssd,space_cache,subvol=/@images	0 0
 
-# /dev/sda9 EXT4 Linux Backup Disk (noauto mount)
-UUID=5d156560-8865-4475-b0ea-7c99c84f93c1 /mnt/sda9 ext4 defaults,user,noauto,noatime,discard 0 0
+# /dev/sda7 ext4 Android
+UUID=0bb29073-7c75-4911-b71e-baa960b275c1	/srv/android    ext4     	rw,defaults,noatime	0 0
+
+# /dev/sdb2 ext4 Ubuntu Root
+UUID=65f116e3-7965-4ed6-92c0-ca507d23e61d	/srv/ubuntu     ext4     	rw,defaults,noatime	0 0
+
+# /dev/sda4 ntfs Windows Root
+UUID=78720AA9720A6C66				/srv/winroot     ntfs-3g     	noauto,defaults,noatime	0 0
+
+# /dev/sda5 ntfs Windows Data
+UUID=D618B7E818B7C631				/srv/windata     ntfs-3g     	noauto,defaults,noatime	0 0
+
+# /dev/sdb2/srv/swapfile
+/srv/ubuntu/srv/swapfile none	swap defaults 0 0
