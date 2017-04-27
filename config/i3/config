@@ -173,7 +173,7 @@ bar {
         status_command py3status -c ~/.config/i3status/config
         tray_output primary
 		position top
-		mode hide
+		#mode hide
 		hidden_state hide
 }
 
