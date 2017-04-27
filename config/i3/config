@@ -109,6 +109,37 @@ bindsym Mod4+Shift+minus move scratchpad
 # If there are multiple scratchpad windows, this command cycles through them.
 bindsym Mod4+minus scratchpad show
 
+# F1-F4 Volume/Sound Control
+bindsym XF86AudioMute exec pactl set-sink-mute 0 toggle
+bindsym XF86AudioLowerVolume exec pactl set-sink-volume 0 -5%
+bindsym XF86AudioRaiseVolume exec pactl set-sink-volume 0 +5%
+bindsym XF86AudioMicMute exec pactl set-source-mute 1 toggle
+
+# F5-F6 Brightness Control
+bindsym XF86MonBrightnessDown exec xbacklight -dec 5
+bindsym XF86MonBrightnessUp exec xbacklight -inc 5
+
+# F7 Display
+bindsym XF86Display exec arandr
+
+# F8 WiFi Control
+# bindsym XF86WLAN exec
+
+# F9 Settings
+bindsym XF86Tools exec gnome-control-center
+
+# F10 Search
+# bindsym XF86Search exec
+
+# F11 Launch
+# bindsym XF86LaunchA exec
+
+# F12 FileManager
+bindsym XF86Explorer exec nautilus
+
+# PrtSc Print Screen
+# bindsym Print exec
+
 # switch to workspace
 bindsym Mod4+1 workspace 1
 bindsym Mod4+2 workspace 2
