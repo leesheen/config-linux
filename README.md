@@ -415,6 +415,14 @@ Zsh的高可定制性使我们获得一个优秀配置变得比较复杂，还�
 
 **注意：**如果想在root用户下也使用zsh的此配置，在root用户下执行上面的命令
 
+添加zsh-autosuggestions
+
+	git clone https://github.com/zsh-users/zsh-autosuggestions $ZSH_CUSTOM/plugins/zsh-autosuggestions
+
+添加至zshrc
+
+	plugins=(zsh-autosuggestions)
+
 ### Vim
 
 Vim是一个强大的编辑器，对我来说最强大之处在于它的速度，任何大小的文件处理起来没有卡顿。无论是码代码还是Markdown，它的顺滑让我的工作更加专注，此前在安装初期我们已经安装:
