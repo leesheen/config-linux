@@ -298,6 +298,7 @@ ThinkPad X240默认识别两个声卡，把HDMI通道的声卡设置成为默认
 修改调度器
 
 /etc/udev/rules.d/60-schedulers.rules
+
 	# set deadline scheduler for non-rotating disks
 	ACTION=="add|change", KERNEL=="sd[a-z]", ATTR{queue/rotational}=="0", ATTR{queue/scheduler}="noop"
 
