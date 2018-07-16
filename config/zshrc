@@ -49,11 +49,11 @@ ZSH_THEME="robbyrussell"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git repo sudo cp extract colorize ubuntu autojump zsh-autosuggestions)
+plugins=(git repo sudo cp extract colorize ubuntu zsh-autosuggestions)
 
 # User configuration
 
-export PATH="/home/leesheen/tools/config-linux/script/work:/home/leesheen/tools/config-linux/tools/depot_tools:/usr/lib/ccache:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games"
+export PATH="/home/leesheen/tools/config-linux/script/work:/usr/lib/ccache:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games"
 # export MANPATH="/usr/local/man:$MANPATH"
 
 source $ZSH/oh-my-zsh.sh
@@ -92,39 +92,26 @@ alias cdwo='cd ~/workdir/'
 alias cdk='cd ~/workdir/linux/kernel'
 alias cdos='cd ~/workdir/android'
 alias cdlollbetaos='cd ~/workdir/android/x86/phoenixOS-lollipop'
-alias cdbetaos='cd ~/workdir/android/x86/phoenixOS-marshmallow'
+alias cdbetaos='cd ~/workdir/android/x86/phoenixOS-nougat'
 alias cdnativeos='cd ~/workdir/android/x86/x86-marshmallow'
 alias cdout='cd out/target/product/'
 alias cdlog='cd ~/workdir/log/'
-
-# Files
-alias -s xz='tar xvf'
-alias -s bz2='tar xvf'
-alias -s gz='tar xvf'
-alias -s zip='unzip'
-alias -s rar='unrar'
-alias -s 7z='7za x'
-alias -s c='vim'
-alias -s cc='vim'
-alias -s S='vim'
-alias -s cpp='vim'
-alias -s h='vim'
 
 # make 
 alias makekv='make kernelversion'
 
 # other
-alias retsave='~/tools/config-linux/script/work/shellreturn.sh -s'
-alias retpop='~/tools/config-linux/script/work/shellreturn.sh -p'
+#alias retsave='~/tools/config-linux/script/work/shellreturn.sh -s'
+#alias retpop='~/tools/config-linux/script/work/shellreturn.sh -p'
 
 # Powerline
 #powerline-daemon -q
 
 # autojump
-[[ -s /home/leesheen/.autojump/etc/profile.d/autojump.sh ]] && source /home/leesheen/.autojump/etc/profile.d/autojump.sh
-autoload -U compinit && compinit -u
+#[[ -s /home/leesheen/.autojump/etc/profile.d/autojump.sh ]] && source /home/leesheen/.autojump/etc/profile.d/autojump.sh
+#autoload -U compinit && compinit -u
 
 #export REPO_URL='https://mirrors.tuna.tsinghua.edu.cn/git/git-repo/'
-export ANDROID_HOME=/opt/android-sdk
-export WORKON_HOME=~/.virtualenvs
-export VIRTUALENVWRAPPER_PYTHON=$(which python3)
+#export ANDROID_HOME=/opt/android-sdk
+
+export OUT_DIR_COMMON_BASE=/srv/out
