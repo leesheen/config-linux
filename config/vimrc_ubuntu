@@ -123,6 +123,7 @@ set scrolloff=3			" 光标移动到顶部或底部保持行数
 set history=100 		" 记录历史命令
 set cursorline			" 高亮光标所在行
 set cursorcolumn		" 高亮光标所在列
+set colorcolumn=80		" 80字符提示
 "set helplang=cn 		" 帮助文档
 "set helpheight=10
 "set   guioptions-=T
@@ -199,6 +200,7 @@ let g:ycm_complete_in_strings = 1
 "注释和字符串中的文字也会被收入补全
 let g:ycm_collect_identifiers_from_comments_and_strings = 0
 let g:ycm_seed_identifiers_with_syntax=1	" 语法关键字补全
+let g:ycm_key_invoke_completion = '<C-a>'
 "----------------------------------------------
 
 let g:airline_powerline_fonts=1
@@ -238,4 +240,3 @@ let g:ctrlp_custom_ignore = {
     \ 'file': '\v\.(exe|so|dll|zip|tar|tar.gz|pyc)$',
     \ }
 "----------------------------------------------
-
