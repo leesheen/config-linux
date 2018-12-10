@@ -200,7 +200,7 @@ let g:ycm_seed_identifiers_with_syntax=1	" 语法关键字补全
 
 " PowerLine 配置
 "----------------------------------------------
-let g:Powerline_symbols = 'fancy'
+" let g:Powerline_symbols = 'fancy'
 set laststatus=2
 set noshowmode
 "----------------------------------------------
