@@ -53,6 +53,7 @@ Plugin 'a.vim'
 " Ctrl+p搜索文件
 Plugin 'kien/ctrlp.vim'
 
+Plugin 'Valloric/YouCompleteMe'
 " Plugin 'Valloric/ListToggle'
 " Plugin 'sukima/xmledit'
 " Plugin 'scrooloose/syntastic'
