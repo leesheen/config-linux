@@ -1,0 +1,22 @@
+#!/bin/bash
+OUT_DIR=$(basename $(pwd))
+
+docker run -it --rm \
+	-e CCACHE_DIR=/ccache \
+	-e PATH="/usr/lib64/ccache:$PATH" \
+	-e OUT_DIR=$OUT_DIR \
+	-v /srv/ccache:/ccache \
+	-v /srv/out:/out \
+	-v $(pwd):/source:cached \
+	centos-building \
+	bash -c "[ ! -d /out/$OUT_DIR ] || mkdir -p /out/$OUT_DIR"
+
+docker run -it --rm \
+	-e CCACHE_DIR=/ccache \
+	-e PATH="/usr/lib64/ccache:$PATH" \
+	-e OUT_DIR=$OUT_DIR \
+	-v /srv/ccache:/ccache \
+	-v /srv/out:/out \
+	-v $(pwd):/source:cached \
+	centos-building \
+	bash -c "cd /source && make menuconfig"

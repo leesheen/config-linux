@@ -1,0 +1,7 @@
+version: '2'
+syncs:
+    code_folder:
+        src: '/Volumes/Code/Workdir'
+        sync_strategy: 'unison'
+        sync_userid: '1000'
+        sync_excludes: []
