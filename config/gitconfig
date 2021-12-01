@@ -10,6 +10,7 @@
 [core]
 	editor = vim
 	excludesfile = /home/leesheen/.gitignore
+	pager =
 [alias]
 	co = checkout
 	br = branch
