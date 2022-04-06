@@ -34,6 +34,7 @@ Plugin 'VundleVim/Vundle.vim'
 
 " 安装L9，如果已经安装过这个插件，可利用以下格式避免命名冲突
 " Plugin 'ascenator/L9', {'name': 'newL9'}
+Plugin 'preservim/tagbar'
 
 " solarized 配色
 Plugin 'altercation/vim-colors-solarized'
@@ -54,6 +55,8 @@ Plugin 'a.vim'
 Plugin 'kien/ctrlp.vim'
 
 Plugin 'Valloric/YouCompleteMe'
+
+Plugin 'fatih/vim-go'
 " Plugin 'Valloric/ListToggle'
 " Plugin 'sukima/xmledit'
 " Plugin 'scrooloose/syntastic'
@@ -113,13 +116,13 @@ set relativenumber		" 显示相对行号
 set ruler				" 最后一行显示标尺
 set showcmd 			" 右下角显示命令模式的命令
 set hidden 				" 隐藏缓冲区
-set textwidth=80		" 文本行宽
+"set textwidth=80		" 文本行宽
 set nowrap				" 代码超过一行是不折叠显示
 set whichwrap=h,l,b,s,<,>,[,] " 处理移动到行首位是否继续
 set scrolloff=3			" 光标移动到顶部或底部保持行数
 set history=100 		" 记录历史命令
-" set cursorline			" 高亮光标所在行
-"set cursorcolumn		: 高亮光标所在列
+set cursorline 			" 高亮光标所在行
+"set cursorcolumn		"高亮光标所在列
 "set helplang=cn 		" 帮助文档
 "set helpheight=10
 "set   guioptions-=T
@@ -129,7 +132,7 @@ set history=100 		" 记录历史命令
 
 set formatoptions+=mM	" 处理自动格式化
 
-set mouse=a				" 鼠标选择区域
+set mouse=r				" 鼠标选择区域
 
 set completeopt=longest,menu
 " set   pumheight=10
@@ -175,6 +178,7 @@ set fileformats=unix,dos
 
 " solarized 配色
 "----------------------------------------------
+"set termguicolors "开启24bit的颜色，开启这个颜色会更漂亮一些
 syntax on 					" Syntax highlighting.
 let g:solarized_termcolors=256
 set t_Co=256 
@@ -258,3 +262,50 @@ nmap <C-\>d :cs find d <C-R>=expand("<cword>")<CR><CR>
 "
 "----------------------------------------------
 au BufReadPost * if line("'\"") > 0|if line("'\"") <= line("$")|exe("norm '\"")|else|exe "norm $"|endif|endif
+
+"==============================================================================
+" vim-go 插件
+"==============================================================================
+let g:go_fmt_command = "goimports" " 格式化将默认的 gofmt 替换
+let g:go_autodetect_gopath = 1
+let g:go_list_type = "quickfix"
+
+let g:go_version_warning = 1
+let g:go_highlight_types = 1
+let g:go_highlight_fields = 1
+let g:go_highlight_functions = 1
+let g:go_highlight_function_calls = 1
+let g:go_highlight_operators = 1
+let g:go_highlight_extra_types = 1
+let g:go_highlight_methods = 1
+let g:go_highlight_generate_tags = 1
+
+let g:godef_split=2
+
+let g:tagbar_type_go = {
+	\ 'ctagstype' : 'go',
+	\ 'kinds'     : [
+		\ 'p:package',
+		\ 'i:imports:1',
+		\ 'c:constants',
+		\ 'v:variables',
+		\ 't:types',
+		\ 'n:interfaces',
+		\ 'w:fields',
+		\ 'e:embedded',
+		\ 'm:methods',
+		\ 'r:constructor',
+		\ 'f:functions'
+	\ ],
+	\ 'sro' : '.',
+	\ 'kind2scope' : {
+		\ 't' : 'ctype',
+		\ 'n' : 'ntype'
+	\ },
+	\ 'scope2kind' : {
+		\ 'ctype' : 't',
+		\ 'ntype' : 'n'
+	\ },
+	\ 'ctagsbin'  : 'gotags',
+	\ 'ctagsargs' : '-sort -silent'
+\ }
