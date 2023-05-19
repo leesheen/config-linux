@@ -1,23 +1,24 @@
-From c50b30fee23a5d2fb8663e8828d027c6d7b25661 Mon Sep 17 00:00:00 2001
-From: Li Xin <lixin117@meituan.com>
-Date: Mon, 16 Sep 2019 11:57:46 +0800
-Subject: [PATCH] robbyrussell: add hostname and time
+From 89e49639b50ccd467e439a5405c52730bbd2319f Mon Sep 17 00:00:00 2001
+From: Li Xin <lixin.engr@gmail.com>
+Date: Fri, 19 May 2023 17:17:22 +0800
+Subject: [PATCH] my ohmyzsh
 
 ---
  themes/robbyrussell.zsh-theme | 3 ++-
  1 file changed, 2 insertions(+), 1 deletion(-)
 
 diff --git a/themes/robbyrussell.zsh-theme b/themes/robbyrussell.zsh-theme
-index 2fd5f2cd..af36b925 100644
+index 173e6d5..5a8d893 100644
 --- a/themes/robbyrussell.zsh-theme
 +++ b/themes/robbyrussell.zsh-theme
 @@ -1,5 +1,6 @@
--PROMPT="%(?:%{$fg_bold[green]%}➜ :%{$fg_bold[red]%}➜ )"
-+PROMPT="%m %(?:%{$fg_bold[green]%}➜ :%{$fg_bold[red]%}➜ )"
- PROMPT+=' %{$fg[cyan]%}%c%{$reset_color%} $(git_prompt_info)'
+-PROMPT="%(?:%{$fg_bold[green]%}➜ :%{$fg_bold[red]%}➜ ) %{$fg[cyan]%}%c%{$reset_color%}"
++PROMPT="%m %(?:%{$fg_bold[green]%}➜ :%{$fg_bold[red]%}➜ ) %{$fg[cyan]%}%c%{$reset_color%}"
+ PROMPT+=' $(git_prompt_info)'
 +RPROMPT="[%D{%y/%m/%f}|%*]"
-
+ 
  ZSH_THEME_GIT_PROMPT_PREFIX="%{$fg_bold[blue]%}git:(%{$fg[red]%}"
  ZSH_THEME_GIT_PROMPT_SUFFIX="%{$reset_color%} "
---
-2.32.0
+-- 
+2.40.1
+
